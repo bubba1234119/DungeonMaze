@@ -19,7 +19,7 @@ public class SilverfishBlockPopulator extends DMMazeRoomBlockPopulator {
 	@Override
 	public void populateRoom(DMMazeRoomBlockPopulatorArgs args) {
 		Chunk c = args.getSourceChunk();
-		rand.setSeed(System.nanoTime());
+		Random rand = args.getRandom();
 		int x = args.getChunkX();
 		int y = args.getChunkY();
 		int floorOffset = args.getFloorOffset();

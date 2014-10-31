@@ -28,7 +28,7 @@ public class RailPopulator extends DMMazeRoomBlockPopulator {
 	public void populateRoom(DMMazeRoomBlockPopulatorArgs args) {
 		World w = args.getWorld();
 		Chunk c = args.getSourceChunk();
-		rand.setSeed(System.nanoTime());
+		Random rand = args.getRandom();
 		int x = args.getChunkX();
 		int y = args.getChunkY();
 		int yFloor = args.getFloorY();
