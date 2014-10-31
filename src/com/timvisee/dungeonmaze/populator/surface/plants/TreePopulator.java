@@ -13,7 +13,7 @@ import com.timvisee.dungeonmaze.populator.surface.DMSurfaceBlockPopulator;
 import com.timvisee.dungeonmaze.populator.surface.DMSurfaceBlockPopulatorArgs;
 
 public class TreePopulator extends DMSurfaceBlockPopulator {
-	public static final int CHANCE_OF_TREE = 10;
+	public static final int CHANCE_OF_TREE = 50;
 	public static final int ITERATIONS = 10;
 
 	@Override

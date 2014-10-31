@@ -19,7 +19,7 @@ import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulatorArgs;
 public class SpawnerPopulator extends DMMazeRoomBlockPopulator {
 	public static final int MIN_LAYER = 1;
 	public static final int MAX_LAYER = 7;
-	public static final int CHANCE_OF_SPAWNER = 6;
+	public static final int CHANCE_OF_SPAWNER = 30;
 	public static final double CHANCE_OF_TORCH_ADDITION_PER_LEVEL = -0.5; /* to 3 */
 	public static final double MIN_SPAWN_DISTANCE = 2; // Chunks
 

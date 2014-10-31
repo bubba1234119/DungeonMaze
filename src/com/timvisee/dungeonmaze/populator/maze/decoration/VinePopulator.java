@@ -17,6 +17,7 @@ public class VinePopulator extends DMMazeRoomBlockPopulator {
 	public static final int CHANCE_OF_CEILING_VINE = 5;
 	public static final int ITERATIONS_CEILING_VINE = 5;
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void populateRoom(DMMazeRoomBlockPopulatorArgs args) {
 		Chunk c = args.getSourceChunk();

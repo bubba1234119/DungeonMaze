@@ -11,7 +11,7 @@ import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulatorArgs;
 public class WebPopulator extends DMMazeRoomBlockPopulator {
 	public static final int MIN_LAYER = 1;
 	public static final int MAX_LAYER = 7;
-	public static final int CHANCE_OF_WEB = 40;
+	public static final int CHANCE_OF_WEB = 60;
 	public static final double CHANCE_OF_WEB_ADDITION_PER_LEVEL = -1.667; /* to 30 */
 	public static final int CORNER_CHANCE = 40;
 

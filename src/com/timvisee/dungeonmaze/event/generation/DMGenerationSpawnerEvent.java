@@ -73,6 +73,7 @@ public class DMGenerationSpawnerEvent extends DMEventHandler {
 	 * @return Random
 	 */
 	public Random getRandom() {
+		this.rand.setSeed(System.nanoTime());
 		return this.rand;
 	}
 }

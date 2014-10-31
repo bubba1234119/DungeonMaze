@@ -37,7 +37,7 @@ public class LanternPopulator extends DMMazeRoomBlockPopulator {
 				
 				Block b = c.getBlock(lanternX, lanternY, lanternZ);
 				if(b.getType() == Material.COBBLESTONE || b.getType() == Material.MOSSY_COBBLESTONE || b.getType() == Material.SMOOTH_BRICK)
-					b.setType(Material.JACK_O_LANTERN);
+					b.setType(Material.GLOWSTONE);
 			}
 		}
 		
@@ -49,7 +49,7 @@ public class LanternPopulator extends DMMazeRoomBlockPopulator {
 				
 				Block b = c.getBlock(lanternX, lanternY, lanternZ);
 				if(b.getType() == Material.COBBLESTONE || b.getType() == Material.MOSSY_COBBLESTONE || b.getType() == Material.SMOOTH_BRICK)
-					b.setType(Material.PUMPKIN);
+					b.setType(Material.GLOWSTONE);
 			}
 		}
 	}
@@ -71,16 +71,4 @@ public class LanternPopulator extends DMMazeRoomBlockPopulator {
 	public int getMaximumLayer() {
 		return MAX_LAYER;
 	}
-
-	// Depricated, might use later again to rotate pumpkins correctly
-	/*private byte getData(int x, int z, int x2, int z2, Material type) {
-		if (x == x2) {
-			if (z < z2)
-				return (byte) (type == Material.JACK_O_LANTERN ? 0 : 2);
-			return (byte) (type == Material.JACK_O_LANTERN ? 2 : 0);
-		}
-		if (x < x2)
-			return (byte) (type == Material.JACK_O_LANTERN ? 3 : 1);
-		return (byte) (type == Material.JACK_O_LANTERN ? 1 : 3);
-	}*/
 }

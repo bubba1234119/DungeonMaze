@@ -15,7 +15,7 @@ public abstract class DMChunkBlockPopulator extends BlockPopulator {
 		// Make sure this chunk is not constant
 		if(DungeonMaze.instance.isConstantChunk(w.getName(), c))
 			return;
-		
+		rand.setSeed(System.nanoTime());
 		// Construct the DMMazeBlockPopulatorArgs to use the the populateMaze method
 		DMChunkBlockPopulatorArgs args = new DMChunkBlockPopulatorArgs(w, rand, c);
 		

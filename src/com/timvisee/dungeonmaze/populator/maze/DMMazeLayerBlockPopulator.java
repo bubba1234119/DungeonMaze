@@ -19,7 +19,7 @@ public abstract class DMMazeLayerBlockPopulator extends DMChunkBlockPopulator {
 		World w = args.getWorld();
 		Random rand = args.getRandom();
 		Chunk c = args.getSourceChunk();
-		
+		rand.setSeed(System.nanoTime());
 		// The layers
 		for(int l = Math.max(getMinimumLayer(), 1); l <= Math.min(getMaximumLayer(), LAYER_AMOUNT); l++) {
 			

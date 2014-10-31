@@ -12,7 +12,7 @@ import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulatorArgs;
 public class LavaOutOfWallPopulator extends DMMazeRoomBlockPopulator {
 	public static final int MIN_LAYER = 1;
 	public static final int MAX_LAYER = 4;
-	public static final int CHANCE_OF_LAVA = 5;
+	public static final int CHANCE_OF_LAVA = 30;
 	public static final double CHANCE_OF_LAVA_ADDITION_PER_LEVEL = -0.833; /* to 0 */
 
 	@Override

@@ -44,6 +44,7 @@ public class DMChunkBlockPopulatorArgs {
 	 * @return Random instance
 	 */
 	public Random getRandom() {
+		this.rand.setSeed(System.nanoTime());
 		return this.rand;
 	}
 	
@@ -52,6 +53,7 @@ public class DMChunkBlockPopulatorArgs {
 	 * @param rand Random instance
 	 */
 	public void setRandom(Random rand) {
+		this.rand.setSeed(System.nanoTime());
 		this.rand = rand;
 	}
 	

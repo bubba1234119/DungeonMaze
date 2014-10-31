@@ -46,6 +46,7 @@ public class DMSurfaceBlockPopulatorArgs {
 	 * @return Random instance
 	 */
 	public Random getRandom() {
+		this.rand.setSeed(System.nanoTime());
 		return this.rand;
 	}
 	
@@ -54,6 +55,7 @@ public class DMSurfaceBlockPopulatorArgs {
 	 * @param rand Random instance
 	 */
 	public void setRandom(Random rand) {
+		rand.setSeed(System.nanoTime());
 		this.rand = rand;
 	}
 	

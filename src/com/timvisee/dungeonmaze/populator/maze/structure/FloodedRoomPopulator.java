@@ -52,9 +52,9 @@ public class FloodedRoomPopulator extends DMMazeRoomBlockPopulator {
 			if(rand.nextInt(100) < CHANCE_OF_WATER)
 				type = Material.WATER;
 				
-			for (int x2=x + 1; x2 <= x + 6; x2+=1) {
-			    for (int y2 = yFloor + 1; y2 <= y + 5; y2+=1) {
-	    			for (int z2=z + 1; z2 <= z + 6; z2+=1) {
+			for (int x2=x + 1; x2 <= x; x2+=1) { //x + 6
+			    for (int y2 = yFloor + 1; y2 <= y; y2+=1) { //y + 5
+	    			for (int z2=z + 1; z2 <= z; z2+=1) { //
     					c.getBlock(x2, y2, z2).setType(type);
 				    }
 			    }

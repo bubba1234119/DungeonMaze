@@ -27,7 +27,7 @@ public class LibraryRoomPopulator extends DMMazeRoomBlockPopulator {
 	public void populateRoom(DMMazeRoomBlockPopulatorArgs args) {
 		World w = args.getWorld();
 		Chunk c = args.getSourceChunk();
-		Random rand = args.getRandom();
+		rand.setSeed(System.nanoTime());
 		int x = args.getChunkX();
 		int y = args.getChunkY();
 		int yFloor = args.getFloorY();
@@ -114,7 +114,6 @@ public class LibraryRoomPopulator extends DMMazeRoomBlockPopulator {
 			if(!event.isCancelled()) {
 				// Make sure the chest is still there, a developer could change the chest through the event!
 				if(event.getBlock().getType() == Material.CHEST)
-				// Add the contents to the chest
 				DMChestUtils.addItemsToChest(event.getBlock(), event.getContents(), !event.getAddContentsInOrder(), rand);
 			}
 
@@ -128,7 +127,6 @@ public class LibraryRoomPopulator extends DMMazeRoomBlockPopulator {
 			if(!event2.isCancelled()) {
 				// Make sure the chest is still there, a developer could change the chest through the event!
 				if(event2.getBlock().getType() == Material.CHEST)
-				// Add the contents to the chest
 				DMChestUtils.addItemsToChest(event.getBlock(), event.getContents(), !event.getAddContentsInOrder(), rand);
 			}
 

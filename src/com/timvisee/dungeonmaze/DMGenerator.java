@@ -49,7 +49,6 @@ import com.timvisee.dungeonmaze.populator.maze.structure.GreatFurnaceRoomPopulat
 import com.timvisee.dungeonmaze.populator.maze.structure.HighRoomPopulator;
 import com.timvisee.dungeonmaze.populator.maze.structure.LibraryRoomPopulator;
 import com.timvisee.dungeonmaze.populator.maze.structure.MassiveRoomPopulator;
-import com.timvisee.dungeonmaze.populator.maze.structure.OasisChunkPopulator;
 import com.timvisee.dungeonmaze.populator.maze.structure.RailPopulator;
 import com.timvisee.dungeonmaze.populator.maze.structure.RuinsPopulator;
 import com.timvisee.dungeonmaze.populator.maze.structure.SanctuaryPopulator;
@@ -57,7 +56,6 @@ import com.timvisee.dungeonmaze.populator.maze.structure.SandPopulator;
 import com.timvisee.dungeonmaze.populator.maze.structure.SpawnChamberPopulator;
 import com.timvisee.dungeonmaze.populator.maze.structure.StairsPopulator;
 import com.timvisee.dungeonmaze.populator.maze.structure.StrutPopulator;
-import com.timvisee.dungeonmaze.populator.maze.structure.TopTurveRoomPopulator;
 import com.timvisee.dungeonmaze.populator.maze.structure.WaterWellRoomPopulator;
 import com.timvisee.dungeonmaze.populator.surface.plants.FlowerPopulator;
 import com.timvisee.dungeonmaze.populator.surface.plants.TallGrassPopulator;
@@ -76,7 +74,7 @@ public class DMGenerator extends ChunkGenerator {
 		return Arrays.asList(
 				new SpawnChamberPopulator(),
 				new OresInGroundPopulator(),
-				new OasisChunkPopulator(),
+				//new OasisChunkPopulator(),
 				new BossRoomHardPopulator(),
 				new BossRoomInsanePopulator(),
 				new LibraryRoomPopulator(),
@@ -106,7 +104,7 @@ public class DMGenerator extends ChunkGenerator {
 				new WaterOutOfWallPopulator(),
 				new RailPopulator(),
 				new SkullPopulator(),
-				new TopTurveRoomPopulator(),
+				//new TopTurveRoomPopulator(),
 				new CreeperSpawnerRoomPopulator(),
 				new GravePopulator(),
 				new ChestPopulator(),
@@ -157,8 +155,10 @@ public class DMGenerator extends ChunkGenerator {
 	// Generate a chunk
 //	@Override
 	public byte[][] generateBlockSections(World world, Random rand, int chunkx, int chunkz, ChunkGenerator.BiomeGrid biomeGrid) {
+		rand.setSeed(System.nanoTime());
 		// Create a byte variable to write the chunk inside and return this variable
 //		byte[] result = new byte[32768];
+		
 		byte[][] result = new byte[world.getMaxHeight()/16][];
 		
 		// This will set the whole floor to stone (the floor of each chunk)

@@ -19,7 +19,7 @@ public class HighRoomPopulator extends DMMazeRoomBlockPopulator {
 	public void populateRoom(DMMazeRoomBlockPopulatorArgs args) {
 		World w = args.getWorld();
 		Chunk c = args.getSourceChunk();
-		Random rand = args.getRandom();
+		rand.setSeed(System.nanoTime());
 		int x = args.getChunkX();
 		int y = args.getChunkY();
 		int z = args.getChunkZ();

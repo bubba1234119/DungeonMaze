@@ -5,6 +5,9 @@ import java.util.Random;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.block.CreatureSpawner;
+import org.bukkit.entity.EntityType;
 
 import com.timvisee.dungeonmaze.DungeonMaze;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulator;
@@ -46,6 +49,10 @@ public class WaterWellRoomPopulator extends DMMazeRoomBlockPopulator {
 			    for (int z2=z + 2; z2 <= z + 4; z2+=1)
 			        c.getBlock(x2,yFloor + 1, z2).setType(Material.SMOOTH_BRICK);
 			c.getBlock(x + 3,yFloor + 1, z + 3).setType(Material.STATIONARY_WATER);
+			Block spawner = c.getBlock(x + 3, yFloor - 1, z+3);
+			spawner.setType(Material.MOB_SPAWNER);
+			CreatureSpawner spawnerBlock = (CreatureSpawner)spawner.getState();
+			spawnerBlock.setSpawnedType(EntityType.SILVERFISH);
 			
 			// Poles
 			c.getBlock(x + 2,yFloor + 2, z + 2).setType(Material.FENCE);

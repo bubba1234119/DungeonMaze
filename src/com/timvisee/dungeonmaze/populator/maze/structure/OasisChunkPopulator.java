@@ -2,7 +2,6 @@ package com.timvisee.dungeonmaze.populator.maze.structure;
 
 import java.util.Random;
 
-
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -21,7 +20,6 @@ public class OasisChunkPopulator extends BlockPopulator {
 	public void populate(World world, Random random, Chunk source) {			
 		// The 4 rooms on each layer saved in the variables x and z
 		if(!DungeonMaze.instance.isConstantChunk(world.getName(), source)) {
-			
 			if(distance(0, 0, source.getX(), source.getZ()) >= MIN_SPAWN_DISTANCE) {
 				if (random.nextInt(1000) < CHANCE_OF_OASIS) {
 					// Flag this chunk as a constant chunk

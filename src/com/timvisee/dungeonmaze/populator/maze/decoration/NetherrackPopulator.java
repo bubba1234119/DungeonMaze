@@ -13,7 +13,7 @@ public class NetherrackPopulator extends DMMazeRoomBlockPopulator {
 	public static final int MIN_LAYER = 1;
 	public static final int MAX_LAYER = 2;
 	public static final int ITERATIONS = 15;
-	public static final int CHANCE = 5;
+	public static final int CHANCE = 25;
 	public static final int BURNING_NETHERRACK = 20;
 
 	@Override
