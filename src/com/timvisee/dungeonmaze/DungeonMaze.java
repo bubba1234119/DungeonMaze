@@ -3,7 +3,6 @@ package com.timvisee.dungeonmaze;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -23,18 +22,12 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.onarandombox.MultiverseCore.MultiverseCore;
-import com.timvisee.dungeonmaze.Metrics.Graph;
-import com.timvisee.dungeonmaze.Updater.UpdateResult;
-import com.timvisee.dungeonmaze.Updater.UpdateType;
 import com.timvisee.dungeonmaze.api.DMApiController;
-import com.timvisee.dungeonmaze.api.DungeonMazeApiOld;
 import com.timvisee.dungeonmaze.config.DMConfigHandler;
 import com.timvisee.dungeonmaze.listener.DMBlockListener;
-import com.timvisee.dungeonmaze.listener.DMPlayerListener;
 import com.timvisee.dungeonmaze.listener.DMPluginListener;
 import com.timvisee.dungeonmaze.listener.DMWorldListener;
 import com.timvisee.dungeonmaze.manager.DMWorldManager;
-import com.timvisee.dungeonmaze.manager.DMPermissionsManager;
 import com.timvisee.dungeonmaze.structure.DMCustomStructureManager;
 
 @SuppressWarnings("deprecation")
@@ -48,7 +41,6 @@ public class DungeonMaze extends JavaPlugin {
 	
 	// Listener
 	private final DMBlockListener blockListener = new DMBlockListener();
-	private final DMPlayerListener playerListener = new DMPlayerListener();
 	private final DMPluginListener pluginListener = new DMPluginListener();
 	private final DMWorldListener worldListener = new DMWorldListener();
 	
@@ -57,12 +49,8 @@ public class DungeonMaze extends JavaPlugin {
 	public List<String> constantRooms = new ArrayList<String>(); // x;y;z
 	public List<String> constantChunks = new ArrayList<String>(); // x;z
 	
-	// Update Checker
-	private Updater uc;
-
 	// Managers, Handlers and Controllers
 	private DMApiController apiController;
-	private DMPermissionsManager permsMan;
 	private DMConfigHandler cfgHand;
 	private DMWorldManager worldMan;
 	private DMCustomStructureManager structMan;
@@ -70,8 +58,6 @@ public class DungeonMaze extends JavaPlugin {
 	/* Multiverse */
 	public boolean useMultiverse = false;
 	public MultiverseCore multiverseCore;
-	
-	private DungeonMazeApiOld dmOldApi;
 	
 	/**
 	 * Constructor
@@ -90,12 +76,6 @@ public class DungeonMaze extends JavaPlugin {
 		
 		// Set up the world manager
 		setUpWorldManager();
-
-		// Set up the update checker
-		setUpUpdateChecker();
-		
-		// Set up permissions usage
-		setUpPermissionsManager();
 		
 		// Set up multiverse usage
 		setUpMultiverse();
@@ -106,23 +86,17 @@ public class DungeonMaze extends JavaPlugin {
 		// Register all event listeners
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(this.blockListener, this);
-		pm.registerEvents(this.playerListener, this);
 		pm.registerEvents(this.pluginListener, this);
 		pm.registerEvents(this.worldListener, this);
 		
 		// Set up the API Controller
 		setUpApiController();
 
-		// Set up the old API system
-		setAPI(new DungeonMazeApiOld(this));
-
 		// Show a startup message
 		PluginDescriptionFile pdfFile = getDescription();
 		log.info("[DungeonMaze] Dungeon Maze v" + pdfFile.getVersion() + " Started");
 		log.info("[DungeonMaze] Dungeon Maze made by Tim Visee - timvisee.com");
 
-		// Setup Metrics
-		setUpMetrics();
 	}
 
 	/**
@@ -192,20 +166,7 @@ public class DungeonMaze extends JavaPlugin {
 	/**
 	 * Setup the permissions manager
 	 */
-	@SuppressWarnings("static-access")
-	public void setUpPermissionsManager() {
-		// Setup the permissions manager
-		this.permsMan = new DMPermissionsManager(this.getServer(), (Plugin) this, this.log);
-		this.permsMan.setup();
-	}
 	
-	/**
-	 * Get the permissions manager
-	 * @return permissions manager
-	 */
-	public DMPermissionsManager getPermissionsManager() {
-		return this.permsMan;
-	}
 	
 	/**
 	 * Set up the config handler
@@ -240,60 +201,7 @@ public class DungeonMaze extends JavaPlugin {
 		return this.worldMan;
 	}
 	
-	/**
-	 * Setup the metrics statics feature
-	 * @return false if an error occurred
-	 */
-	public boolean setUpMetrics() {
-		try {
-		    Metrics metrics = new Metrics(this);
-		    // Construct a graph, which can be immediately used and considered as valid
-		    // Player count in Dungeon Maze
-		    Graph graph = metrics.createGraph("Players in Dungeon Maze");
-		    graph.addPlotter(new Metrics.Plotter("Players") {
-	            @Override
-	            public int getValue() {
-	            	List<Player> players = Arrays.asList(getServer().getOnlinePlayers());
-	            	int count = 0;
-	            	for(Player p : players) {
-	            		getWorldManager();
-						if(getWorldManager().isDMWorld(p.getWorld().getName()))
-	            			count++;
-	            	}
-	            	return count;
-	            }
-		    });
-		    metrics.start();
-		    return true;
-		} catch (IOException e) {
-		    // Failed to submit the statics :-(
-			e.printStackTrace();
-			return false;
-		}
-	}
 	
-	/**
-	 * Set up the update checker
-	 */
-	public void setUpUpdateChecker() {
-		if (this.cfgHand.enableUpdateCheckerOnStartup)
-			this.uc = new Updater(this, 45175, this.getFile(), UpdateType.DEFAULT, true);
-		else
-			this.uc = null;
-	}
-	
-	/**
-	 * Get the update checker instance
-	 * @param force 
-	 * @return Update checker instance
-	 */
-	public Updater getUpdateChecker(boolean force) {
-		if (uc != null)
-			return this.uc;
-		if (force)
-			return new Updater(this, 45175, this.getFile(), UpdateType.DEFAULT, true);
-		return null;
-	}
 	
 	public void setUpMultiverse() {
 		// Setup and hook into Multiverse
@@ -347,7 +255,7 @@ public class DungeonMaze extends JavaPlugin {
 					args[0].toString().equalsIgnoreCase("create")) {
 				// Check permission
 				if(sender instanceof Player) {
-					if(!getPermissionsManager().hasPermission((Player) sender, "dungeonmaze.command.createworld", sender.isOp())) {
+					if(!sender.hasPermission("dungeonmaze.command.createworld")) {
 						sender.sendMessage(ChatColor.DARK_RED + "You don't have permission!");
 						return true;
 					}
@@ -408,7 +316,7 @@ public class DungeonMaze extends JavaPlugin {
 				
 				// Check permission
 				if(sender instanceof Player) {
-					if(!getPermissionsManager().hasPermission((Player) sender, "dungeonmaze.command.teleport", sender.isOp())) {
+					if(!sender.hasPermission("dungeonmaze.command.teleport")) {
 						sender.sendMessage(ChatColor.DARK_RED + "You don't have permission!");
 						return true;
 					}
@@ -457,7 +365,7 @@ public class DungeonMaze extends JavaPlugin {
 				
 				// Check permission
 				if(sender instanceof Player) {
-					if(!getPermissionsManager().hasPermission((Player) sender, "dungeonmaze.command.listworlds", sender.isOp())) {
+					if(!sender.hasPermission("dungeonmaze.command.listworlds")) {
 						sender.sendMessage(ChatColor.DARK_RED + "You don't have permission!");
 						return true;
 					}
@@ -486,7 +394,7 @@ public class DungeonMaze extends JavaPlugin {
 				
 				// Check permission
 				if(sender instanceof Player) {
-					if(!getPermissionsManager().hasPermission((Player) sender, "dungeonmaze.command.reload")) {
+					if(!sender.hasPermission("dungeonmaze.command.reload")) {
 						sender.sendMessage(ChatColor.DARK_RED + "You don't have permission!");
 						return true;
 					}
@@ -494,9 +402,6 @@ public class DungeonMaze extends JavaPlugin {
 				
 				log.info("[DungeonMaze] Reloading plugin...");
 				sender.sendMessage(ChatColor.YELLOW + "Reloading Dungeon Maze");
-				
-				// Setup permissions
-				setUpPermissionsManager();
 				
 				// Reload configs and worlds
 				getConfigHandler().load();
@@ -518,107 +423,16 @@ public class DungeonMaze extends JavaPlugin {
 				
 				// Check permission
 				if(sender instanceof Player) {
-					if(!getPermissionsManager().hasPermission((Player) sender, "dungeonmaze.command.reloadpermissions")) {
+					if(!sender.hasPermission("dungeonmaze.command.reloadpermissions")) {
 						sender.sendMessage(ChatColor.DARK_RED + "You don't have permission!");
 						return true;
 					}
 				}
-				
-				// Setup permissions
-				setUpPermissionsManager();
-				
+								
 				// Show a succes message
 				sender.sendMessage(ChatColor.GREEN + "Permissions succesfully reloaded!");
 				return true;
 				
-			} else if(args[0].equalsIgnoreCase("check") || args[0].equalsIgnoreCase("checkupdates")) {
-				
-				// Check wrong command values
-				if(args.length != 1) {
-					sender.sendMessage(ChatColor.DARK_RED + "Wrong command values!");sender.sendMessage(ChatColor.YELLOW + "Use " + ChatColor.GOLD + "/" + commandLabel + " help " + ChatColor.YELLOW + "to view help");
-					return true;
-				}
-				
-				// Check permission
-				if(sender instanceof Player) {
-					if(!DungeonMaze.instance.getPermissionsManager().hasPermission((Player) sender, "dungeonmaze.command.checkupdates")) {
-						sender.sendMessage(ChatColor.DARK_RED + "You don't have permission!");
-						return true;
-					}
-				}
-				
-				// Setup permissions
-				sender.sendMessage(ChatColor.GREEN + "Checking for updates...");
-				
-				// Get the update checker and refresh the updates data
-				Updater uc = getUpdateChecker(true);
-				
-				if(uc.getResult() != UpdateResult.SUCCESS && uc.getResult() == UpdateResult.UPDATE_AVAILABLE && uc.getResult() != UpdateResult.FAIL_NOVERSION) {
-					sender.sendMessage(ChatColor.GREEN + "No new version found!");
-				} else {
-					
-					String newVer = uc.getLatestName();
-					
-					// Make sure the new version is compatible with the current bukkit version
-					if(uc.getResult() == UpdateResult.FAIL_NOVERSION) {
-						sender.sendMessage(ChatColor.GREEN + "New Dungeon Maze version available: v" + String.valueOf(newVer));
-						sender.sendMessage(ChatColor.GREEN + "The new version is not compatible with your Bukkit version!");
-						sender.sendMessage(ChatColor.GREEN + "Please update your Bukkkit to " +  uc.getLatestGameVersion() + " or higher!");
-					} else {
-						if(uc.getResult() == UpdateResult.SUCCESS)
-							sender.sendMessage(ChatColor.GREEN + "New version installed (v" + String.valueOf(newVer) + "). Server reboot required!");
-						else {
-							sender.sendMessage(ChatColor.GREEN + "New version found: " + String.valueOf(newVer));
-							sender.sendMessage(ChatColor.GREEN + "Use " + ChatColor.GOLD + "/dm installupdate" +
-									ChatColor.GREEN + " to automaticly install the new version!");
-						}
-					}
-				}
-				
-				return true;
-				
-			} else if(args[0].equalsIgnoreCase("installupdate") || args[0].equalsIgnoreCase("installupdates")) {
-				// Check wrong command values
-				if(args.length != 1) {
-					sender.sendMessage(ChatColor.DARK_RED + "Wrong command values!");
-					sender.sendMessage(ChatColor.YELLOW + "Use " + ChatColor.GOLD + "/" + commandLabel + " help " + ChatColor.YELLOW + "to view help");
-					return true;
-				}
-				
-				// Check permission
-				if(sender instanceof Player) {
-					if(!getPermissionsManager().hasPermission((Player) sender, "dungeonmaze.command.installupdate")) {
-						sender.sendMessage(ChatColor.DARK_RED + "You don't have permission!");
-						return true;
-					}
-				}
-				
-				// Setup permissions
-				sender.sendMessage(ChatColor.GREEN + "Checking for updates...");
-				
-				// Get the update checker and refresh the updates data
-				Updater uc = getUpdateChecker(true);
-				
-				if(uc.getResult() != UpdateResult.SUCCESS && uc.getResult() == UpdateResult.UPDATE_AVAILABLE && uc.getResult() != UpdateResult.FAIL_NOVERSION) {
-					sender.sendMessage(ChatColor.GREEN + "No new version found!");
-				} else {
-					
-					String newVer = uc.getLatestName();
-					
-					// Make sure the new version is compatible with the current bukkit version
-					if(uc.getResult() == UpdateResult.FAIL_NOVERSION) {
-						sender.sendMessage(ChatColor.GREEN + "New Dungeon Maze version available: v" + String.valueOf(newVer));
-						sender.sendMessage(ChatColor.GREEN + "The new version is not compatible with your Bukkit version!");
-						sender.sendMessage(ChatColor.GREEN + "Please update your Bukkkit to " +  uc.getLatestGameVersion() + " or higher!");
-					} else {
-						if(uc.getResult() == UpdateResult.SUCCESS)
-							sender.sendMessage(ChatColor.GREEN + "New version installed (v" + String.valueOf(newVer) + "). Server reboot required!");
-						else {
-							sender.sendMessage(ChatColor.GREEN + "New version found: " + String.valueOf(newVer) + ", but auto-install failed, please update by yourself!");
-						}
-					}
-				}
-				return true;
 			} else if(args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("h") ||
 					args[0].equalsIgnoreCase("?")) {
 				
@@ -769,16 +583,6 @@ public class DungeonMaze extends JavaPlugin {
 			constantRooms.clear();
 		}
 		return constantRooms.contains(Integer.toString(roomX) + ";" + Integer.toString(roomY) + ";" + Integer.toString(roomZ));
-	}
-
-	@Deprecated
-	public void setAPI(DungeonMazeApiOld dmAPI) {
-		this.dmOldApi = dmAPI;
-	}
-
-	@Deprecated
-	public DungeonMazeApiOld getDmAPI() {
-		return dmOldApi;
 	}
 
 	public String getVersion() {

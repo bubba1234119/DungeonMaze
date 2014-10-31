@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -51,7 +53,7 @@ public class DMWorldManager {
 		if (getMultiverseCore() == null) {
 			FileConfiguration bukkitConfig = DungeonMaze.instance.getConfigFromPath(new File("bukkit.yml"));
 			if(bukkitConfig != null) {
-				//System.out.println("Editing bukkit.yml file...");
+				DungeonMaze.instance.getLogger().log(Level.INFO,"Editing bukkit.yml file...");
 				for(String entry : w)
 					bukkitConfig.set("worlds." + w + ".generator", entry);
 				
@@ -60,7 +62,7 @@ public class DMWorldManager {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				//System.out.println("Editing finished!");
+				DungeonMaze.instance.getLogger().log(Level.INFO,"Editing finished!");
 			}
 		}
 	}
@@ -131,10 +133,14 @@ public class DMWorldManager {
 	
 	public MultiverseCore getMultiverseCore() {
         MultiverseCore mv = (MultiverseCore) DungeonMaze.instance.getServer().getPluginManager().getPlugin("Multiverse-Core");
- 
         if (mv != null)
-        	if (mv.getDescription().getVersion().contains("2.5"))
+        	if (NumberUtils.isNumber(mv.getDescription().getVersion().substring(0, mv.getDescription().getVersion().indexOf("-"))))
+        	{
+        		if(Double.parseDouble(mv.getDescription().getVersion().substring(0, mv.getDescription().getVersion().indexOf("-"))) >= 2.5)
+        		{
         			return mv;
-        return null;
+        		}
+        	}
+		return null;
     }
 }

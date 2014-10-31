@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import com.timvisee.dungeonmaze.DungeonMaze;
-import com.timvisee.dungeonmaze.api.manager.DMAPermissionsManager;
 import com.timvisee.dungeonmaze.api.manager.DMAWorldManager;
 
 public class DungeonMazeApi {
@@ -165,15 +164,7 @@ public class DungeonMazeApi {
 	public DMAWorldManager getWorldManager() {
 		return new DMAWorldManager(this.dm);
 	}
-	
-	/**
-	 * Get the permissions manager instance (API Layer)
-	 * @return Permissions manager instance
-	 */
-	public DMAPermissionsManager getPermissionsManager() {
-		return new DMAPermissionsManager(this.dm);
-	}
-	
+		
 	/**
 	 * Check if a player is able to build in a DM world
 	 * @param w the world name
@@ -187,7 +178,7 @@ public class DungeonMazeApi {
 		
 		if(getDM().getWorldManager().isDMWorld(w))
 			if(getDM().getConfigHandler().worldProtection)
-				return getDM().getPermissionsManager().hasPermission(p, "dungeonmaze.bypass.build", p.isOp());
+				return p.hasPermission("dungeonmaze.bypass.build");
 		return true;
 	}
 	
@@ -204,7 +195,7 @@ public class DungeonMazeApi {
 		
 		if(getDM().getWorldManager().isDMWorld(w))
 			if(!getDM().getConfigHandler().allowSurface)
-				return getDM().getPermissionsManager().hasPermission(p, "dungeonmaze.bypass.surface", p.isOp());
+				return p.hasPermission("dungeonmaze.bypass.surface");
 		return true;
 	}
 	

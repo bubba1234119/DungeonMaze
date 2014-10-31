@@ -14,6 +14,12 @@ public class EntrancePopulator extends DMMazeRoomBlockPopulator {
 	public static final int MAX_LAYER = 7;
 	public static final int CHANCE_OF_ENTRANCE = 5; // Promile
 
+//	public void setBlock(org.bukkit.World world, int x, int y, int z, int id, int data) {
+//		ChunkSection chunksection = getChunkSection(world, x, y, z);
+//		chunksection.setTypeId(x & 0xF,  y & 0xF,  z & 0xF,  Block.getById(id));
+//		chunksection.setData(x & 0xF, y & 0xF,  z & 0xF,  data);
+//	}
+	
 	@Override
 	public void populateRoom(DMMazeRoomBlockPopulatorArgs args) {
 		Chunk c = args.getSourceChunk();
@@ -21,6 +27,7 @@ public class EntrancePopulator extends DMMazeRoomBlockPopulator {
 		int x = args.getChunkX();
 		int y = args.getChunkY();
 		int z = args.getChunkZ();
+//		World world = args.getWorld();
 		
 		// Apply chances
 		if (rand.nextInt(1000) < CHANCE_OF_ENTRANCE) {
@@ -31,7 +38,7 @@ public class EntrancePopulator extends DMMazeRoomBlockPopulator {
 			switch(rand.nextInt(4)) {
 			case 0:
 				// Get ground height
-				for(yground = 100; c.getBlock(x + 0, yground, z + 3).getType() == Material.AIR; yground--);
+				for(yground = 100; (c.getBlock(x + 0, yground, z + 3).getType() == Material.AIR) && (yground >= 0); yground--);
 				
 				// Generate the hole
 				for(int xx = 0; xx < 8; xx++) {
@@ -39,8 +46,9 @@ public class EntrancePopulator extends DMMazeRoomBlockPopulator {
 						for(int yy = y; yy < yground + 1; yy++) {
 							if(xx == 0 || xx == 7 || zz == 0 || zz == 7) {
 								c.getBlock(x + xx, yy, z + zz).setType(Material.SMOOTH_BRICK);
+//								setBlock(world, x + xx, yy, z + zz, Material.SMOOTH_BRICK.getId(), 0);
 							} else {
-								c.getBlock(x + xx, yy, z + zz).setType(Material.AIR);
+//								c.getBlock(x + xx, yy, z + zz).setType(Material.AIR);
 							}
 						}
 					}
@@ -66,7 +74,6 @@ public class EntrancePopulator extends DMMazeRoomBlockPopulator {
 						}
 					}
 				}
-				
 				// Get the floor location of the room
 				int yfloor = y - 6; /* -6 to start 1 floor lower */
 				Block roomBottomBlock = c.getBlock(x + 2, y, z + 2);
@@ -146,7 +153,7 @@ public class EntrancePopulator extends DMMazeRoomBlockPopulator {
 			case 1:
 				
 				// Get ground height
-				for(yground = 100; c.getBlock(x + 3, yground, z + 7).getType() == Material.AIR; yground--);
+				for(yground = 100; (c.getBlock(x + 3, yground, z + 7).getType() == Material.AIR) && (yground >= 0); yground--);
 				
 				// Generate the hole
 				for(int xx = 0; xx < 8; xx++) {
@@ -239,7 +246,7 @@ public class EntrancePopulator extends DMMazeRoomBlockPopulator {
 			case 2:
 				
 				// Get ground height
-				for(yground = 100; c.getBlock(x + 3, yground, z + 3).getType() == Material.AIR; yground--);
+				for(yground = 100; (c.getBlock(x + 3, yground, z + 3).getType() == Material.AIR) && (yground >= 0); yground--);
 				
 				// Generate the hole
 				for(int xx = 0; xx < 8; xx++) {
@@ -310,7 +317,7 @@ public class EntrancePopulator extends DMMazeRoomBlockPopulator {
 			case 3:
 				
 				// Get ground height
-				for(yground = 100; c.getBlock(x + 3, yground, z + 3).getType() == Material.AIR; yground--);
+				for(yground = 100; (c.getBlock(x + 3, yground, z + 3).getType() == Material.AIR) && (yground >= 0); yground--);
 				
 				// Generate the hole
 				for(int xx = 0; xx < 8; xx++) {
@@ -373,7 +380,7 @@ public class EntrancePopulator extends DMMazeRoomBlockPopulator {
 			default:
 				
 				// Get ground height
-				for(yground = 100; c.getBlock(x + 3, yground, z + 3).getType() == Material.AIR; yground--);
+				for(yground = 100; (c.getBlock(x + 3, yground, z + 3).getType() == Material.AIR) && (yground >= 0); yground--);
 				
 				// Generate the hole
 				for(int xx = 0; xx < 8; xx++) {

@@ -66,10 +66,11 @@ public class GravePopulator extends DMMazeRoomBlockPopulator {
 			sign.update();
 		} else {
 			String[] graveUsernames = {
-					"timvisee",
-					"Metonymia",
-					"Notch",
-					"Jeb"
+					"Haloflooder",
+					"DevBukkit",
+					"VirusTotal",
+					"Hipufiamiumi",
+					"HHCraft"
 					};
 			String[][] graveText = {
 						{"Rest In","Pieces"},
@@ -90,7 +91,7 @@ public class GravePopulator extends DMMazeRoomBlockPopulator {
 						{"Joined the","bad side!"}
 					};
 			
-			String graveUsername = "Notch";
+			String graveUsername = "Haloflooder";
 			String[] selectedText = new String[]{"", ""};
 			int selectedGraveTextIndex = random.nextInt(graveText.length);
 			selectedText[0] = graveText[selectedGraveTextIndex][0];

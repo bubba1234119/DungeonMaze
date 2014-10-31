@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -75,7 +74,6 @@ public class DMGenerator extends ChunkGenerator {
 	@Override
 	public List<BlockPopulator> getDefaultPopulators(World world) {
 		return Arrays.asList(
-				/*new BrokenWallsPopulator(),*/
 				new SpawnChamberPopulator(),
 				new OresInGroundPopulator(),
 				new OasisChunkPopulator(),
@@ -83,7 +81,6 @@ public class DMGenerator extends ChunkGenerator {
 				new BossRoomInsanePopulator(),
 				new LibraryRoomPopulator(),
 				new AbandonedDefenceCastleRoomPopulator(),
-				/*new ArmoryRoomPopulator(),*/
 				new WaterWellRoomPopulator(),
 				new SanctuaryPopulator(),
 				new BlazeSpawnerRoomPopulator(),
@@ -147,22 +144,35 @@ public class DMGenerator extends ChunkGenerator {
 		return (x * 16 + z) * 128 + y;
 	}
 
+	//set block type in a chunk
+	private static void setBlockID(byte[][] chunk_data, int x, int y, int z, byte id) {
+		int sec_id = y >> 4;
+		int yy=y & 0xF;
+		if (chunk_data[sec_id] == null) {
+			chunk_data[sec_id] = new byte[4096];
+		}
+		chunk_data[sec_id][(yy << 8 | z << 4 | x)] = id;
+	}
+	
 	// Generate a chunk
-	@Override
-	public byte[] generate(World world, Random rand, int chunkx, int chunkz) {
+//	@Override
+	public byte[][] generateBlockSections(World world, Random rand, int chunkx, int chunkz, ChunkGenerator.BiomeGrid biomeGrid) {
 		// Create a byte variable to write the chunk inside and return this variable
-		byte[] result = new byte[32768];
+//		byte[] result = new byte[32768];
+		byte[][] result = new byte[world.getMaxHeight()/16][];
 		
 		// This will set the whole floor to stone (the floor of each chunk)
 		for (int y = 30 + 3; y > 0; y--)
 			for (int x = 0; x < 16; x++)
 				for (int z = 0; z < 16; z++)
-					result[xyzToByte(x, y, z)] = (byte) Material.STONE.getId();
+					setBlockID(result, x, y, z, (byte)Material.STONE.getId());
+//					result[xyzToByte(x, y, z)] = (byte) Material.STONE.getId();
 		
 		// Set the lowest layer to bedrock
 		for (int x = 0; x < 16; x++)
 			for (int z = 0; z < 16; z++)
-				result[xyzToByte(x, 0, z)] = (byte) Material.BEDROCK.getId();
+				setBlockID(result, x, 0, z, (byte)Material.BEDROCK.getId());
+//				result[xyzToByte(x, 0, z)] = (byte) Material.BEDROCK.getId();
 
 		// The layers for each 5 rooms in the variable y
 		for (int y=30; y < 30+(7*6); y+=6) {
@@ -189,17 +199,22 @@ public class DMGenerator extends ChunkGenerator {
 								if(y2 == y + yfloor)
 									for (int xb = x; xb < x + 8; xb++)
 										for (int zb = z; zb < z + 8; zb++)
-											result[xyzToByte(xb, y2, zb)] = (byte) Material.COBBLESTONE.getId();
+											setBlockID(result, xb, y2, zb, (byte) Material.COBBLESTONE.getId());
+//											result[xyzToByte(xb, y2, zb)] = (byte) Material.COBBLESTONE.getId();
 								
 								// Fill the walls of the place with cobblestone
 								if ((x2 == x || x2 == x + 7) && (z2 == z || z2 == z + 7))
-									result[xyzToByte(x2, y2, z2)] = (byte) 98;
+									setBlockID(result, x2, y2, z2, (byte) 98);
+//									result[xyzToByte(x2, y2, z2)] = (byte) 98;
 								else if (xr == x2)
-									result[xyzToByte(x2, y2, z2)] = (byte) 98;
+									setBlockID(result, x2, y2, z2, (byte) 98);
+//									result[xyzToByte(x2, y2, z2)] = (byte) 98;
 								else if (zr == z2)
-									result[xyzToByte(x2, y2, z2)] = (byte) 98;
+									setBlockID(result, x2, y2, z2, (byte) 98);
+//									result[xyzToByte(x2, y2, z2)] = (byte) 98;
 								else
-									result[xyzToByte(x2, y2, z2)] = (byte) Material.AIR.getId();
+									setBlockID(result, x2, y2, z2, (byte)Material.AIR.getId());
+//									result[xyzToByte(x2, y2, z2)] = (byte) Material.AIR.getId();
 							}
 						}
 					}
@@ -218,26 +233,34 @@ public class DMGenerator extends ChunkGenerator {
 				/*int height = getHeight(world, chunkx + x * 0.0625, chunkz + z * 0.0625, 2) + 30+(7*6) + 7;*/
 				double height = octave.noise(x + chunkx * 16, z + chunkz * 16, 0.5, 0.5) * 4 + 9;
 				
-				result[xyzToByte(x, 30+(7*6), z)] = (byte) Material.COBBLESTONE.getId();
+//				result[xyzToByte(x, 30+(7*6), z)] = (byte) Material.COBBLESTONE.getId();
+				setBlockID(result, x, 30+(7*6), z, (byte)Material.COBBLESTONE.getId());
 				for(int y = 30+(7*6)+1; y < 30+(7*6)+4; y++)
-					result[xyzToByte(x, y, z)] = (byte) Material.STONE.getId();
+					setBlockID(result, x, y, z, (byte)Material.STONE.getId());
+//					result[xyzToByte(x, y, z)] = (byte) Material.STONE.getId();
 				
 				// Get the current biome
 				Biome biome = world.getBiome((chunkx*16) + x, (chunkz*16) + z);
 				
 				if(biome.equals(Biome.DESERT) || biome.equals(Biome.DESERT_HILLS)) {
 					for(int y = 30+(7*6)+4; y < 30+(7*6)+2+height; y++)
-						result[xyzToByte(x, y, z)] = (byte) Material.SAND.getId();
+						setBlockID(result, x, y, z, (byte)Material.SAND.getId());
+//						result[xyzToByte(x, y, z)] = (byte) Material.SAND.getId();
 					
 				} else if(biome.equals(Biome.MUSHROOM_ISLAND) || biome.equals(Biome.MUSHROOM_ISLAND)){
 					for(int y = 30+(7*6)+4; y < 30+(7*6)+2+height; y++)
-						result[xyzToByte(x, y, z)] = (byte) Material.DIRT.getId();
-					result[xyzToByte(x, (int) (30+(7*6)+2+height), z)] = (byte) Material.MYCEL.getId();
+						setBlockID(result, x, y, z, (byte)Material.DIRT.getId());
+//						result[xyzToByte(x, y, z)] = (byte) Material.DIRT.getId();
+					setBlockID(result, x, (int) (30+(7*6)+2+height), z, (byte)Material.MYCEL.getId());
+//					result[xyzToByte(x, (int) (30+(7*6)+2+height), z)] = (byte) Material.MYCEL.getId();
 					
 				} else {
 					for(int y = 30+(7*6)+4; y < 30+(7*6)+2+height; y++)
-						result[xyzToByte(x, y, z)] = (byte) Material.DIRT.getId();
-					result[xyzToByte(x, (int) (30+(7*6)+2+height), z)] = (byte) Material.GRASS.getId();
+						setBlockID(result, x, y, z, (byte)Material.DIRT.getId());
+//						result[xyzToByte(x, y, z)] = (byte) Material.DIRT.getId();
+					setBlockID(result, x, (int) (30+(7*6)+2+height), z, (byte)Material.GRASS.getId());
+//					result[xyzToByte(x, (int) (30+(7*6)+2+height), z)] = (byte) Material.GRASS.getId();
+					
 				}
 			}
 		}	
