@@ -35,13 +35,13 @@ public class SilverfishBlockPopulator extends DMMazeRoomBlockPopulator {
 				
 				Block lanternBlock = c.getBlock(blockX, blockY, blockZ);
 				if(lanternBlock.getType() == Material.STONE) {
-					lanternBlock.setTypeIdAndData(Material.MONSTER_EGGS.getId(),(byte)0,true);
+					lanternBlock.setTypeIdAndData(Material.MONSTER_EGGS.getId(),(byte)0,false);
 				} else if(lanternBlock.getType() == Material.COBBLESTONE) {
-					lanternBlock.setTypeIdAndData(Material.MONSTER_EGGS.getId(),(byte) 1,true);
+					lanternBlock.setTypeIdAndData(Material.MONSTER_EGGS.getId(),(byte) 1,false);
 				} else if(lanternBlock.getType() == Material.MOSSY_COBBLESTONE) {
-					lanternBlock.setTypeIdAndData(Material.MONSTER_EGGS.getId(),(byte) 1,true);
+					lanternBlock.setTypeIdAndData(Material.MONSTER_EGGS.getId(),(byte) 1,false);
 				} else if(lanternBlock.getType() == Material.SMOOTH_BRICK) {
-					lanternBlock.setTypeIdAndData(Material.MONSTER_EGGS.getId(),(byte)2,true);
+					lanternBlock.setTypeIdAndData(Material.MONSTER_EGGS.getId(),(byte)2,false);
 				}
 			}
 		}

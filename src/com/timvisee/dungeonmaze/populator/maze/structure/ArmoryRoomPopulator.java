@@ -65,18 +65,18 @@ public class ArmoryRoomPopulator extends DMMazeRoomBlockPopulator {
 			}
 			
 			// Pumpkins
-			c.getBlock(x + 2, yFloor + 1, z + 2).setType(Material.JACK_O_LANTERN);
-			c.getBlock(x + 2, yFloor + 1, z + 5).setType(Material.JACK_O_LANTERN);
-			c.getBlock(x + 5, yFloor + 1, z + 2).setType(Material.JACK_O_LANTERN);
-			c.getBlock(x + 5, yFloor + 1, z + 5).setType(Material.JACK_O_LANTERN);
-			c.getBlock(x + 2, yFloor + 2, z + 2).setType(Material.JACK_O_LANTERN);
-			c.getBlock(x + 2, yFloor + 2, z + 5).setType(Material.JACK_O_LANTERN);
-			c.getBlock(x + 5, yFloor + 2, z + 2).setType(Material.JACK_O_LANTERN);
-			c.getBlock(x + 5, yFloor + 2, z + 5).setType(Material.JACK_O_LANTERN);
-			c.getBlock(x + 2, yFloor + 3, z + 2).setType(Material.JACK_O_LANTERN);
-			c.getBlock(x + 2, yFloor + 3, z + 5).setType(Material.JACK_O_LANTERN);
-			c.getBlock(x + 5, yFloor + 3, z + 2).setType(Material.JACK_O_LANTERN);
-			c.getBlock(x + 5, yFloor + 3, z + 5).setType(Material.JACK_O_LANTERN);
+			c.getBlock(x + 2, yFloor + 1, z + 2).setType(Material.GLOWSTONE);
+			c.getBlock(x + 2, yFloor + 1, z + 5).setType(Material.GLOWSTONE);
+			c.getBlock(x + 5, yFloor + 1, z + 2).setType(Material.GLOWSTONE);
+			c.getBlock(x + 5, yFloor + 1, z + 5).setType(Material.GLOWSTONE);
+			c.getBlock(x + 2, yFloor + 2, z + 2).setType(Material.GLOWSTONE);
+			c.getBlock(x + 2, yFloor + 2, z + 5).setType(Material.GLOWSTONE);
+			c.getBlock(x + 5, yFloor + 2, z + 2).setType(Material.GLOWSTONE);
+			c.getBlock(x + 5, yFloor + 2, z + 5).setType(Material.GLOWSTONE);
+			c.getBlock(x + 2, yFloor + 3, z + 2).setType(Material.GLOWSTONE);
+			c.getBlock(x + 2, yFloor + 3, z + 5).setType(Material.GLOWSTONE);
+			c.getBlock(x + 5, yFloor + 3, z + 2).setType(Material.GLOWSTONE);
+			c.getBlock(x + 5, yFloor + 3, z + 5).setType(Material.GLOWSTONE);
 			
 			// Chests
 			c.getBlock(x + 2, yFloor + 1, z + 3).setType(Material.CHEST);

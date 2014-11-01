@@ -75,33 +75,33 @@ public class AbandonedDefenceCastleRoomPopulator extends DMMazeRoomBlockPopulato
 				c.getBlock(x + 7, yFloor + 3, z + xx).setType(Material.SMOOTH_BRICK);
 			}
 			
-			c.getBlock(x + 0, yFloor + 4, z + 1).setTypeIdAndData(Material.STEP.getId(),(byte) 5,true);
-			c.getBlock(x + 0, yFloor + 4, z + 3).setTypeIdAndData(Material.STEP.getId(),(byte) 5,true);
-			c.getBlock(x + 0, yFloor + 4, z + 5).setTypeIdAndData(Material.STEP.getId(),(byte) 5,true);
-			c.getBlock(x + 7, yFloor + 4, z + 2).setTypeIdAndData(Material.STEP.getId(),(byte) 5,true);
-			c.getBlock(x + 7, yFloor + 4, z + 4).setTypeIdAndData(Material.STEP.getId(),(byte) 5,true);
-			c.getBlock(x + 7, yFloor + 4, z + 6).setTypeIdAndData(Material.STEP.getId(),(byte) 5,true);
-			c.getBlock(x + 1, yFloor + 4, z + 0).setTypeIdAndData(Material.STEP.getId(),(byte) 5,true);
-			c.getBlock(x + 3, yFloor + 4, z + 0).setTypeIdAndData(Material.STEP.getId(),(byte) 5,true);
-			c.getBlock(x + 5, yFloor + 4, z + 0).setTypeIdAndData(Material.STEP.getId(),(byte) 5,true);
-			c.getBlock(x + 2, yFloor + 4, z + 7).setTypeIdAndData(Material.STEP.getId(),(byte) 5,true);
-			c.getBlock(x + 4, yFloor + 4, z + 7).setTypeIdAndData(Material.STEP.getId(),(byte) 5,true);
-			c.getBlock(x + 6, yFloor + 4, z + 7).setTypeIdAndData(Material.STEP.getId(),(byte) 5,true);
+			c.getBlock(x + 0, yFloor + 4, z + 1).setTypeIdAndData(Material.STEP.getId(),(byte) 5,false);
+			c.getBlock(x + 0, yFloor + 4, z + 3).setTypeIdAndData(Material.STEP.getId(),(byte) 5,false);
+			c.getBlock(x + 0, yFloor + 4, z + 5).setTypeIdAndData(Material.STEP.getId(),(byte) 5,false);
+			c.getBlock(x + 7, yFloor + 4, z + 2).setTypeIdAndData(Material.STEP.getId(),(byte) 5,false);
+			c.getBlock(x + 7, yFloor + 4, z + 4).setTypeIdAndData(Material.STEP.getId(),(byte) 5,false);
+			c.getBlock(x + 7, yFloor + 4, z + 6).setTypeIdAndData(Material.STEP.getId(),(byte) 5,false);
+			c.getBlock(x + 1, yFloor + 4, z + 0).setTypeIdAndData(Material.STEP.getId(),(byte) 5,false);
+			c.getBlock(x + 3, yFloor + 4, z + 0).setTypeIdAndData(Material.STEP.getId(),(byte) 5,false);
+			c.getBlock(x + 5, yFloor + 4, z + 0).setTypeIdAndData(Material.STEP.getId(),(byte) 5,false);
+			c.getBlock(x + 2, yFloor + 4, z + 7).setTypeIdAndData(Material.STEP.getId(),(byte) 5,false);
+			c.getBlock(x + 4, yFloor + 4, z + 7).setTypeIdAndData(Material.STEP.getId(),(byte) 5,false);
+			c.getBlock(x + 6, yFloor + 4, z + 7).setTypeIdAndData(Material.STEP.getId(),(byte) 5,false);
 			
 			// Place torches
-			c.getBlock(x + 1, yFloor + 3, z + 1).setTypeIdAndData(Material.TORCH.getId(),(byte) 5,true);
-			c.getBlock(x + 1, yFloor + 3, z + 6).setTypeIdAndData(Material.TORCH.getId(),(byte) 5,true);
-			c.getBlock(x + 6, yFloor + 3, z + 1).setTypeIdAndData(Material.TORCH.getId(),(byte) 5,true);
-			c.getBlock(x + 6, yFloor + 3, z + 6).setTypeIdAndData(Material.TORCH.getId(),(byte) 5,true);
-			c.getBlock(x + 6, yFloor + 3, z + 6).setTypeIdAndData(Material.TORCH.getId(),(byte) 5,true);
+			c.getBlock(x + 1, yFloor + 3, z + 1).setTypeIdAndData(Material.TORCH.getId(),(byte) 5,false);
+			c.getBlock(x + 1, yFloor + 3, z + 6).setTypeIdAndData(Material.TORCH.getId(),(byte) 5,false);
+			c.getBlock(x + 6, yFloor + 3, z + 1).setTypeIdAndData(Material.TORCH.getId(),(byte) 5,false);
+			c.getBlock(x + 6, yFloor + 3, z + 6).setTypeIdAndData(Material.TORCH.getId(),(byte) 5,false);
+			c.getBlock(x + 6, yFloor + 3, z + 6).setTypeIdAndData(Material.TORCH.getId(),(byte) 5,false);
 			
 			// Place ladders
-			c.getBlock(x + 2, yFloor + 1, z + 5).setTypeIdAndData(Material.LADDER.getId(),(byte) 2,true);
-			c.getBlock(x + 2, yFloor + 2, z + 5).setTypeIdAndData(Material.LADDER.getId(),(byte) 2,true);
+			c.getBlock(x + 2, yFloor + 1, z + 5).setTypeIdAndData(Material.LADDER.getId(),(byte) 2,false);
+			c.getBlock(x + 2, yFloor + 2, z + 5).setTypeIdAndData(Material.LADDER.getId(),(byte) 2,false);
 			
 			// Place crafting table, chests and furnaces
 			c.getBlock(x + 2, yFloor + 1, z + 2).setType(Material.WORKBENCH);
-			c.getBlock(x + 5, yFloor + 1, z + 2).setTypeIdAndData(Material.CHEST.getId(),(byte) 2,true);
+			c.getBlock(x + 5, yFloor + 1, z + 2).setTypeIdAndData(Material.CHEST.getId(),(byte) 2,false);
 			
 			//Call the Chest generation event
 			DMGenerationChestEvent event = new DMGenerationChestEvent(c.getBlock(x + 5, yFloor + 1, z + 2), rand, genChestContent(rand), DMMazeStructureType.ABANDONED_DEFENCE_CASTLE_ROOM);
@@ -115,7 +115,7 @@ public class AbandonedDefenceCastleRoomPopulator extends DMMazeRoomBlockPopulato
 				DMChestUtils.addItemsToChest(event.getBlock(), event.getContents(), !event.getAddContentsInOrder(), rand);
 			}
 
-			c.getBlock(x + 5, yFloor + 1, z + 3).setTypeIdAndData(Material.CHEST.getId(),(byte) 2,true);
+			c.getBlock(x + 5, yFloor + 1, z + 3).setTypeIdAndData(Material.CHEST.getId(),(byte) 2,false);
 			
 			//Call the Chest generation event
 			DMGenerationChestEvent event2 = new DMGenerationChestEvent(c.getBlock(x + 5, yFloor + 1, z + 3), rand, genChestContent(rand), DMMazeStructureType.ABANDONED_DEFENCE_CASTLE_ROOM);

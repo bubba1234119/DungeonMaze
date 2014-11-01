@@ -93,17 +93,17 @@ public class BlazeSpawnerRoomPopulator extends DMMazeRoomBlockPopulator {
 	                c.getBlock(xx, yFloor + 1, zz).setType(Material.NETHER_BRICK);
 			
 			// Generate stairs off the platform
-			c.getBlock(x + 3, yFloor + 1, z + 2).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 2,true);
-			c.getBlock(x + 4, yFloor + 1, z + 2).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 2,true);
+			c.getBlock(x + 3, yFloor + 1, z + 2).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 2,false);
+			c.getBlock(x + 4, yFloor + 1, z + 2).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 2,false);
 			
-			c.getBlock(x + 3, yFloor + 1, z + 5).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 3,true);
-			c.getBlock(x + 4, yFloor + 1, z + 5).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 3,true);
+			c.getBlock(x + 3, yFloor + 1, z + 5).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 3,false);
+			c.getBlock(x + 4, yFloor + 1, z + 5).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 3,false);
 			
-			c.getBlock(x + 2, yFloor + 1, z + 3).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 0,true);
-			c.getBlock(x + 2, yFloor + 1, z + 4).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 0,true);
+			c.getBlock(x + 2, yFloor + 1, z + 3).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 0,false);
+			c.getBlock(x + 2, yFloor + 1, z + 4).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 0,false);
 			
-			c.getBlock(x + 5, yFloor + 1, z + 3).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 1,true);
-			c.getBlock(x + 5, yFloor + 1, z + 4).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 1,true);
+			c.getBlock(x + 5, yFloor + 1, z + 3).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 1,false);
+			c.getBlock(x + 5, yFloor + 1, z + 4).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 1,false);
 
 			// Generate poles on the platform
 			c.getBlock(x + 2, yFloor + 2, z + 2).setType(Material.NETHER_FENCE);

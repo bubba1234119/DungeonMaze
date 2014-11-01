@@ -24,16 +24,16 @@ public class TallGrassPopulator extends DMSurfaceBlockPopulator {
 				int xGrass = rand.nextInt(16);
 				int zGrass = rand.nextInt(16);
 				
-				// Get the surface level
-				int ySurface = args.getSurfaceLevel(xGrass, zGrass);
+				for(int j = 94; j > 79; j--)
+				{
 				
-				if(c.getBlock(xGrass, ySurface, zGrass).getType() == Material.GRASS) {
-					int yGrass = ySurface + 1;
-					
+				if(c.getBlock(xGrass, j-1, zGrass).getType() == Material.GRASS) {
+					int yGrass = j;
 					c.getBlock(xGrass, yGrass, zGrass).setType(Material.LONG_GRASS);
 					c.getBlock(xGrass, yGrass, zGrass).setData((byte) 1);
 				}
 			}
 		}
 	}
+  }
 }

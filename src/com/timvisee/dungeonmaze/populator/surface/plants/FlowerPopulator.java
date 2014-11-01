@@ -24,12 +24,10 @@ public class FlowerPopulator extends DMSurfaceBlockPopulator {
 				int xFlower = rand.nextInt(16);
 				int zFlower = rand.nextInt(16);
 				
-				// Get the surface level at the location of the flower
-				int ySurface = args.getSurfaceLevel(xFlower, zFlower);
-				
-				// Make sure the surface block is grass
-				if(c.getBlock(xFlower, ySurface, zFlower).getType() == Material.GRASS) {
-					int flowerY = ySurface + 1;
+				for(int j = 94; j > 79; j--)
+				{
+				if(c.getBlock(xFlower, j -1, zFlower).getType() == Material.GRASS) {
+					int flowerY = j;
 					
 					// Spawn the flower
 					if (rand.nextInt(2) == 0) {
@@ -41,6 +39,7 @@ public class FlowerPopulator extends DMSurfaceBlockPopulator {
 				}
 			}
 		}
+	  }
 	}
 	
 	/**

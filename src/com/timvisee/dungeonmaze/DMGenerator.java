@@ -74,7 +74,6 @@ public class DMGenerator extends ChunkGenerator {
 		return Arrays.asList(
 				new SpawnChamberPopulator(),
 				new OresInGroundPopulator(),
-				//new OasisChunkPopulator(),
 				new BossRoomHardPopulator(),
 				new BossRoomInsanePopulator(),
 				new LibraryRoomPopulator(),
@@ -104,7 +103,6 @@ public class DMGenerator extends ChunkGenerator {
 				new WaterOutOfWallPopulator(),
 				new RailPopulator(),
 				new SkullPopulator(),
-				//new TopTurveRoomPopulator(),
 				new CreeperSpawnerRoomPopulator(),
 				new GravePopulator(),
 				new ChestPopulator(),
@@ -120,8 +118,8 @@ public class DMGenerator extends ChunkGenerator {
 				new WebPopulator(),
 				new VinePopulator(),
 				new CobblestonePopulator(),
-				new MushroomPopulator(),
-				new ExplosionPopulator()
+				new MushroomPopulator()
+				//,new ExplosionPopulator()
 				);
 	}
 
@@ -154,6 +152,7 @@ public class DMGenerator extends ChunkGenerator {
 	
 	// Generate a chunk
 //	@Override
+	@SuppressWarnings("deprecation")
 	public byte[][] generateBlockSections(World world, Random rand, int chunkx, int chunkz, ChunkGenerator.BiomeGrid biomeGrid) {
 		rand.setSeed(System.nanoTime());
 		// Create a byte variable to write the chunk inside and return this variable

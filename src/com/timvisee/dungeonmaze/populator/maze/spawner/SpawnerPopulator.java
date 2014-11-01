@@ -49,9 +49,10 @@ public class SpawnerPopulator extends DMMazeRoomBlockPopulator {
 					// Generate a random spawnedType for the spawner
 					EntityType spawnedType = null;
 					int i = rand.nextInt(25) + 1;
-					if(i >= 1 && i <= 10 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Zombie"))
+					if(i >= 1 && i <= 9 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Zombie"))
 						spawnedType = EntityType.ZOMBIE;
-					
+					else if(i == 10)
+						spawnedType = EntityType.CAVE_SPIDER;
 					else if(i >= 11 && i <= 15 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Skeleton"))
 						spawnedType = EntityType.SKELETON;
 						
@@ -62,16 +63,13 @@ public class SpawnerPopulator extends DMMazeRoomBlockPopulator {
 						spawnedType = EntityType.PIG_ZOMBIE;
 					
 					else if(i == 23 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Enderman"))
-						spawnedType = EntityType.ENDERMAN;
+						spawnedType = EntityType.CREEPER;
 					
 					else if(i == 24 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("MagmaCube"))
 						spawnedType = EntityType.MAGMA_CUBE;
 					
 					else if(i == 25 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Silverfish"))
 						spawnedType = EntityType.SILVERFISH;
-					
-					else if (DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Zombie"))
-						spawnedType = EntityType.ZOMBIE;
 					
 					else // if no entity type is allowed and the random return none value, continue the for loop
 						return;
