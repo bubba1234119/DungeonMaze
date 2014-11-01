@@ -31,8 +31,7 @@ public class SlabPopulator extends DMMazeRoomBlockPopulator {
 				if(c.getBlock(slabX, slabY - 1, slabZ).getType() != Material.AIR) {
 					Block slabBlock = c.getBlock(slabX, slabY, slabZ);
 					if(slabBlock.getType() == Material.AIR) {
-						slabBlock.setType(Material.STEP);
-						slabBlock.setData((byte) 3);
+						slabBlock.setTypeIdAndData(Material.STEP.getId(),(byte) 3,true);
 					}
 				}
 			}

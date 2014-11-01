@@ -16,6 +16,7 @@ public class SilverfishBlockPopulator extends DMMazeRoomBlockPopulator {
 	public static final int ITERATIONS = 8;
 	public static final double CHANCE_ADDITION_PER_LEVEL = -4.167; /* to 75 */
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void populateRoom(DMMazeRoomBlockPopulatorArgs args) {
 		Chunk c = args.getSourceChunk();
@@ -34,17 +35,13 @@ public class SilverfishBlockPopulator extends DMMazeRoomBlockPopulator {
 				
 				Block lanternBlock = c.getBlock(blockX, blockY, blockZ);
 				if(lanternBlock.getType() == Material.STONE) {
-					lanternBlock.setType(Material.MONSTER_EGGS);
-					lanternBlock.setData((byte) 0);
+					lanternBlock.setTypeIdAndData(Material.MONSTER_EGGS.getId(),(byte)0,true);
 				} else if(lanternBlock.getType() == Material.COBBLESTONE) {
-					lanternBlock.setType(Material.MONSTER_EGGS);
-					lanternBlock.setData((byte) 1);
+					lanternBlock.setTypeIdAndData(Material.MONSTER_EGGS.getId(),(byte) 1,true);
 				} else if(lanternBlock.getType() == Material.MOSSY_COBBLESTONE) {
-					lanternBlock.setType(Material.MONSTER_EGGS);
-					lanternBlock.setData((byte) 1);
+					lanternBlock.setTypeIdAndData(Material.MONSTER_EGGS.getId(),(byte) 1,true);
 				} else if(lanternBlock.getType() == Material.SMOOTH_BRICK) {
-					lanternBlock.setType(Material.MONSTER_EGGS);
-					lanternBlock.setData((byte) 2);
+					lanternBlock.setTypeIdAndData(Material.MONSTER_EGGS.getId(),(byte)2,true);
 				}
 			}
 		}

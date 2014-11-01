@@ -21,76 +21,123 @@ public class TreePopulator extends DMSurfaceBlockPopulator {
 		World w = args.getWorld();
 		Chunk c = args.getSourceChunk();
 		Random rand = args.getRandom();
-		
+		System.out.println(1);
 		// Iterate
 		for(int i = 0; i < ITERATIONS; i++) {
 			// Apply chances
 			if (rand.nextInt(100) < CHANCE_OF_TREE) {
-				
+
 				int xTree = rand.nextInt(16);
 				int zTree = rand.nextInt(16);
-				
+				System.out.println(xTree);
+				System.out.println(zTree);
 				// Get the surface level
-				int ySurface = args.getSurfaceLevel(xTree, zTree);
-				
-				int yTree = ySurface + 1;
-				
+				//int ySurface = args.getSurfaceLevel(xTree, zTree);
+
+				//int yTree = ySurface + 1;
+
 				Biome biome = c.getWorld().getBiome((c.getX() * 16) + xTree, (c.getZ() * 16) + zTree);
-				
-				if(biome.equals(Biome.DESERT) || biome.equals(Biome.DESERT_HILLS)) {
-					if(c.getBlock(xTree, ySurface, zTree).getType() == Material.SAND)
-						c.getBlock(xTree, yTree, zTree).setType(Material.CACTUS);
-					
-				} else if(biome.equals(Biome.FOREST)) {
-					if(c.getBlock(xTree, ySurface, zTree).getType() == Material.GRASS)
-						c.getWorld().generateTree(new Location(c.getWorld(), (c.getX()*16) + xTree, yTree, (c.getZ() * 16) + zTree), TreeType.BIRCH);
-					
-				} else if(biome.equals(Biome.JUNGLE) || biome.equals(Biome.JUNGLE_HILLS)) {
-					if(c.getBlock(xTree, ySurface, zTree).getType() == Material.GRASS) {
-						switch(rand.nextInt(3)) {
-						case 0:
-							c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, yTree, (c.getZ() * 16) + zTree), TreeType.JUNGLE);
-							break;
-						case 1:
-							c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, yTree, (c.getZ() * 16) + zTree), TreeType.SMALL_JUNGLE);
-							break;
-						case 2: 
-							c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, yTree, (c.getZ() * 16) + zTree), TreeType.JUNGLE_BUSH);
-							break;
+
+				for(int j = 94; j > 79; j--)
+				{
+					Material block = c.getBlock((c.getX() * 16) + xTree, j - 1, (c.getZ() * 16) + zTree).getType();
+					System.out.println(String.valueOf(j));
+					if(block == Material.SAND || block == Material.GRASS)
+					{
+
+						if(biome.equals(Biome.DESERT) || biome.equals(Biome.DESERT_HILLS)) {
+							
+							if(c.getBlock(xTree, j-1, zTree).getType() == Material.SAND){
+							switch(rand.nextInt(7))
+							{
+							
+							case 0:
+								c.getBlock(xTree, j, zTree).setType(Material.CACTUS);
+								c.getBlock(xTree, j+1, zTree).setType(Material.CACTUS);
+							case 1:
+								c.getBlock(xTree, j, zTree).setType(Material.DEAD_BUSH);
+							case 2:
+								c.getBlock(xTree, j, zTree).setType(Material.CACTUS);
+								c.getBlock(xTree, j+1, zTree).setType(Material.CACTUS);
+								c.getBlock(xTree, j+2, zTree).setType(Material.CACTUS);
+							}
+						  }
+						} else if(biome.equals(Biome.FOREST)) {
+							if(c.getBlock(xTree, j-1, zTree).getType() == Material.GRASS){
+								c.getWorld().generateTree(new Location(c.getWorld(), (c.getX()*16) + xTree, j, (c.getZ() * 16) + zTree), TreeType.BIRCH);
+							}
+
+						} 
+						else if(biome.equals(Biome.JUNGLE) || biome.equals(Biome.JUNGLE_HILLS)) {
+							if(c.getBlock(xTree, j-1, zTree).getType() == Material.GRASS) {
+								switch(rand.nextInt(3)) {
+								case 0:
+									c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, j, (c.getZ() * 16) + zTree), TreeType.JUNGLE);
+									break;
+								case 1:
+									c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, j, (c.getZ() * 16) + zTree), TreeType.SMALL_JUNGLE);
+									break;
+								case 2: 
+									c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, j, (c.getZ() * 16) + zTree), TreeType.JUNGLE_BUSH);
+									break;
+								}
+							}
+
+						} 
+						else if(biome.equals(Biome.MUSHROOM_ISLAND) || biome.equals(Biome.MUSHROOM_SHORE)) {
+							if(c.getBlock(xTree, j-1, zTree).getType() == Material.GRASS) {
+								switch(rand.nextInt(2)) {
+								case 0:
+									c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, j, (c.getZ() * 16) + zTree), TreeType.RED_MUSHROOM);
+									break;
+								case 1:
+									c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, j, (c.getZ() * 16) + zTree), TreeType.BROWN_MUSHROOM);
+									break;
+								}
+							}
+
+						} 
+						else if(biome.equals(Biome.ROOFED_FOREST))
+						{
+							if(c.getBlock(xTree, j-1, zTree).getType() == Material.GRASS) {
+								switch(rand.nextInt(6)) {
+								case 0:
+									c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, j, (c.getZ() * 16) + zTree), TreeType.RED_MUSHROOM);
+									break;
+								case 1:
+									c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, j, (c.getZ() * 16) + zTree), TreeType.ACACIA);
+									break;
+								case 2:
+									c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, j, (c.getZ() * 16) + zTree), TreeType.JUNGLE_BUSH);
+									break;
+								case 3:
+									c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, j, (c.getZ() * 16) + zTree), TreeType.MEGA_REDWOOD);
+								}
+							}
+
 						}
-					}
-					
-				} else if(biome.equals(Biome.MUSHROOM_ISLAND) || biome.equals(Biome.MUSHROOM_SHORE)) {
-					if(c.getBlock(xTree, ySurface, zTree).getType() == Material.GRASS) {
-						switch(rand.nextInt(2)) {
-						case 0:
-							c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, yTree, (c.getZ() * 16) + zTree), TreeType.RED_MUSHROOM);
-							break;
-						case 1:
-							c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, yTree, (c.getZ() * 16) + zTree), TreeType.BROWN_MUSHROOM);
-							break;
+						else if(biome.equals(Biome.SWAMPLAND)){
+							if(c.getBlock(xTree, j-1, zTree).getType() == Material.GRASS)
+								c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, j, (c.getZ() * 16) + zTree), TreeType.SWAMP);
 						}
+						else if(biome.equals(Biome.TAIGA) || biome.equals(Biome.TAIGA_HILLS)) 
+						{
+							if(c.getBlock(xTree, j-1, zTree).getType() == Material.GRASS) {
+								switch(rand.nextInt(2)) {
+								case 0:
+									c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, j, (c.getZ() * 16) + zTree), TreeType.REDWOOD);
+									break;
+								case 1:
+									c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, j, (c.getZ() * 16) + zTree), TreeType.TALL_REDWOOD);
+									break;
+								}
+							}
+						} else
+							if(c.getBlock(xTree, j-1, zTree).getType() == Material.GRASS){
+								c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, j, (c.getZ() * 16) + zTree), TreeType.TREE);
+							}
 					}
-					
-				} else if(biome.equals(Biome.SWAMPLAND))
-					if(c.getBlock(xTree, ySurface, zTree).getType() == Material.GRASS)
-						c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, yTree, (c.getZ() * 16) + zTree), TreeType.SWAMP);
-					
-				else if(biome.equals(Biome.TAIGA) || biome.equals(Biome.TAIGA_HILLS)) {
-					if(c.getBlock(xTree, ySurface, zTree).getType() == Material.GRASS) {
-						switch(rand.nextInt(2)) {
-						case 0:
-							c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, yTree, (c.getZ() * 16) + zTree), TreeType.REDWOOD);
-							break;
-						case 1:
-							c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, yTree, (c.getZ() * 16) + zTree), TreeType.TALL_REDWOOD);
-							break;
-						}
-					}
-					
-				} else
-					if(c.getBlock(xTree, ySurface, zTree).getType() == Material.GRASS)
-						c.getWorld().generateTree(new Location(w, (c.getX() * 16) + xTree, yTree, (c.getZ() * 16) + zTree), TreeType.TREE);
+				}
 			}
 		}
 	}

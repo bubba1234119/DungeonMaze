@@ -19,6 +19,7 @@ public class GravePopulator extends DMMazeRoomBlockPopulator {
 	public static final int MAX_LAYER = 6;
 	public static final int CHANCE_OF_GRAVE = 5; // Promile
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void populateRoom(DMMazeRoomBlockPopulatorArgs args) {
 		Chunk c = args.getSourceChunk();
@@ -39,8 +40,7 @@ public class GravePopulator extends DMMazeRoomBlockPopulator {
 			c.getBlock(graveX - 2, graveY, graveZ).setType(Material.STEP);
 			
 			// Put a sign on a grave and write some text on it
-			c.getBlock(graveX, graveY + 1, graveZ).setType(Material.SIGN_POST);
-			c.getBlock(graveX, graveY + 1, graveZ).setData((byte) 4);
+			c.getBlock(graveX, graveY + 1, graveZ).setTypeIdAndData(Material.SIGN_POST.getId(),(byte) 4,true);
 			
 			// Update the text on the sign
 			Block b = c.getBlock(graveX, graveY + 1, graveZ);
@@ -65,13 +65,7 @@ public class GravePopulator extends DMMazeRoomBlockPopulator {
 			changeSignLine(sign, 4, "FOUND");
 			sign.update();
 		} else {
-			String[] graveUsernames = {
-					"Haloflooder",
-					"DevBukkit",
-					"VirusTotal",
-					"Hipufiamiumi",
-					"HHCraft"
-					};
+	
 			String[][] graveText = {
 						{"Rest In","Pieces"},
 						{"Ate raw", "porkchop"},
@@ -91,18 +85,13 @@ public class GravePopulator extends DMMazeRoomBlockPopulator {
 						{"Joined the","bad side!"}
 					};
 			
-			String graveUsername = "Haloflooder";
+			String graveUsername = "{username}";
 			String[] selectedText = new String[]{"", ""};
 			int selectedGraveTextIndex = random.nextInt(graveText.length);
 			selectedText[0] = graveText[selectedGraveTextIndex][0];
 			selectedText[1] = graveText[selectedGraveTextIndex][1];
 			
-			if(!DungeonMaze.instance.isAnyPlayerOnline())
-				graveUsername = graveUsernames[random.nextInt(graveUsernames.length)];
-			else {
-				Player[] onlinePlayers = Bukkit.getOnlinePlayers();
-				graveUsername = onlinePlayers[random.nextInt(onlinePlayers.length)].getName();
-			}
+		
 			
 			changeSignLine(sign, 1, graveUsername);
 			changeSignLine(sign, 2, "");

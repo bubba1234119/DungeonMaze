@@ -29,6 +29,7 @@ public class BlazeSpawnerRoomPopulator extends DMMazeRoomBlockPopulator {
 	public static final double CHANCE_OF_SPANWER_ROOM_ADDITION_PER_LEVEL = -0.167; /* to 1 */
 	public static final double MIN_SPAWN_DISTANCE = 5; // Chunks
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void populateRoom(DMMazeRoomBlockPopulatorArgs args) {
 		World w = args.getWorld();
@@ -92,25 +93,17 @@ public class BlazeSpawnerRoomPopulator extends DMMazeRoomBlockPopulator {
 	                c.getBlock(xx, yFloor + 1, zz).setType(Material.NETHER_BRICK);
 			
 			// Generate stairs off the platform
-			c.getBlock(x + 3, yFloor + 1, z + 2).setType(Material.NETHER_BRICK_STAIRS);
-			c.getBlock(x + 3, yFloor + 1, z + 2).setData((byte) 2);
-			c.getBlock(x + 4, yFloor + 1, z + 2).setType(Material.NETHER_BRICK_STAIRS);
-			c.getBlock(x + 4, yFloor + 1, z + 2).setData((byte) 2);
+			c.getBlock(x + 3, yFloor + 1, z + 2).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 2,true);
+			c.getBlock(x + 4, yFloor + 1, z + 2).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 2,true);
 			
-			c.getBlock(x + 3, yFloor + 1, z + 5).setType(Material.NETHER_BRICK_STAIRS);
-			c.getBlock(x + 3, yFloor + 1, z + 5).setData((byte) 3);
-			c.getBlock(x + 4, yFloor + 1, z + 5).setType(Material.NETHER_BRICK_STAIRS);
-			c.getBlock(x + 4, yFloor + 1, z + 5).setData((byte) 3);
+			c.getBlock(x + 3, yFloor + 1, z + 5).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 3,true);
+			c.getBlock(x + 4, yFloor + 1, z + 5).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 3,true);
 			
-			c.getBlock(x + 2, yFloor + 1, z + 3).setType(Material.NETHER_BRICK_STAIRS);
-			c.getBlock(x + 2, yFloor + 1, z + 3).setData((byte) 0);
-			c.getBlock(x + 2, yFloor + 1, z + 4).setType(Material.NETHER_BRICK_STAIRS);
-			c.getBlock(x + 2, yFloor + 1, z + 4).setData((byte) 0);
+			c.getBlock(x + 2, yFloor + 1, z + 3).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 0,true);
+			c.getBlock(x + 2, yFloor + 1, z + 4).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 0,true);
 			
-			c.getBlock(x + 5, yFloor + 1, z + 3).setType(Material.NETHER_BRICK_STAIRS);
-			c.getBlock(x + 5, yFloor + 1, z + 3).setData((byte) 1);
-			c.getBlock(x + 5, yFloor + 1, z + 4).setType(Material.NETHER_BRICK_STAIRS);
-			c.getBlock(x + 5, yFloor + 1, z + 4).setData((byte) 1);
+			c.getBlock(x + 5, yFloor + 1, z + 3).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 1,true);
+			c.getBlock(x + 5, yFloor + 1, z + 4).setTypeIdAndData(Material.NETHER_BRICK_STAIRS.getId(),(byte) 1,true);
 
 			// Generate poles on the platform
 			c.getBlock(x + 2, yFloor + 2, z + 2).setType(Material.NETHER_FENCE);
@@ -182,6 +175,7 @@ public class BlazeSpawnerRoomPopulator extends DMMazeRoomBlockPopulator {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public List<ItemStack> generateChestContents(Random random) {
 		List<ItemStack> items = new ArrayList<ItemStack>();
 		if(random.nextInt(100) < 80)

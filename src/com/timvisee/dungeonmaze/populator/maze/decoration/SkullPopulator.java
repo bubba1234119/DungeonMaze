@@ -51,8 +51,7 @@ public class SkullPopulator extends DMMazeRoomBlockPopulator {
 				if(withPole)
 					poleBlock.setType(Material.FENCE);
 				
-				skullBlock.setType(Material.SKULL);
-				skullBlock.setData((byte) 1);
+				skullBlock.setTypeIdAndData(Material.SKULL.getId(),(byte) 1,true);
 				
 				BlockState bs = (BlockState) skullBlock.getState();
 				Skull s = (Skull) bs;

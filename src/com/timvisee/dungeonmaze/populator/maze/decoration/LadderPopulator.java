@@ -56,8 +56,7 @@ public class LadderPopulator extends DMMazeRoomBlockPopulator {
 			// Make sure there's no wall or anything else
 			if(c.getBlock(startX, startY, startZ).getType() == Material.AIR) {
 				for (int ladderY=startY; ladderY <= startY + 8; ladderY++) {
-					c.getBlock(startX, ladderY, startZ).setType(Material.LADDER);
-					c.getBlock(startX, ladderY, startZ).setData(ladderData);
+					c.getBlock(startX, ladderY, startZ).setTypeIdAndData(Material.LADDER.getId(),ladderData,true);
 				}
 			}
 		}
