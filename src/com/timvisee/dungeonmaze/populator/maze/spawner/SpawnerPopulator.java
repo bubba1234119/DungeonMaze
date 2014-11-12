@@ -56,13 +56,14 @@ public class SpawnerPopulator extends DMMazeRoomBlockPopulator {
 					else if(i >= 11 && i <= 15 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Skeleton"))
 						spawnedType = EntityType.SKELETON;
 						
-					else if(i >= 16 && i <= 20 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Spider"))
+					else if(i >= 16 && i <= 19 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Spider"))
 						spawnedType = EntityType.SPIDER;
-					
+					else if(i == 20 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Enderman"))
+						spawnedType = EntityType.ENDERMAN;
 					else if(i >= 21 && i <= 22 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("PigZombie"))
 						spawnedType = EntityType.PIG_ZOMBIE;
 					
-					else if(i == 23 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Enderman"))
+					else if(i == 23 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Creeper"))
 						spawnedType = EntityType.CREEPER;
 					
 					else if(i == 24 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("MagmaCube"))

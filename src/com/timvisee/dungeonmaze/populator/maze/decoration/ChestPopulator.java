@@ -1,9 +1,14 @@
 package com.timvisee.dungeonmaze.populator.maze.decoration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
@@ -11,17 +16,22 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.inventory.ItemStack;
 
+import com.timvisee.dungeonmaze.DungeonMaze;
 import com.timvisee.dungeonmaze.event.generation.DMGenerationChestEvent;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulator;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulatorArgs;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeStructureType;
 import com.timvisee.dungeonmaze.util.DMChestUtils;
+import com.timvisee.dungeonmaze.util.ItemUtils;
 
 public class ChestPopulator extends DMMazeRoomBlockPopulator {
 	public static final int MIN_LAYER = 1;
 	public static final int MAX_LAYER = 7;
 	public static final int CHANCE_OF_CHEST = 3;
 	public static final double CHANCE_OF_CHEST_ADDITION_PER_LEVEL = -0.333; // to 1
+	private final transient Pattern splitPattern = Pattern.compile("((.*)[:+',;.](\\d+))");
+	private final transient Map<String, Integer> items = new HashMap<String, Integer>();
+	private final transient Map<String, Short> durabilities = new HashMap<String, Short>();
 
 	@Override
 	public void populateRoom(DMMazeRoomBlockPopulatorArgs args) {
@@ -90,10 +100,45 @@ public class ChestPopulator extends DMMazeRoomBlockPopulator {
 		}
 	}
 
+
+
+	
 	public List<ItemStack> generateChestContents(Random random) {
 		// TODO: Use class for this, to also add feature to re loot chests
 		List<ItemStack> items = new ArrayList<ItemStack>();
-		if(random.nextInt(100) < 80)
+		for(int i = 0; i < DungeonMaze.instance.getConfigHandler().itemsCommon.size(); i++)
+		{
+			if(random.nextInt(100) < 80)
+			{
+				String [] common = DungeonMaze.instance.getConfigHandler().itemsCommon.get(i).split(" ");
+				items.add(ItemUtils.parseItem(common));
+			}
+		}
+		for(int j = 0; j < DungeonMaze.instance.getConfigHandler().itemsUncommon.size(); j++)
+		{
+			if(random.nextInt(100) < 50)
+			{
+				String [] uncommon = DungeonMaze.instance.getConfigHandler().itemsUncommon.get(j).split(" ");
+				items.add(ItemUtils.parseItem(uncommon));
+			}
+		}
+		for(int h = 0; h < DungeonMaze.instance.getConfigHandler().itemsRare.size(); h++)
+		{
+			if(random.nextInt(100) < 30)
+			{
+				String [] rare = DungeonMaze.instance.getConfigHandler().itemsRare.get(h).split(" ");
+				items.add(ItemUtils.parseItem(rare));
+			}
+		}
+		for(int a = 0; a < DungeonMaze.instance.getConfigHandler().itemsRare.size(); a++)
+		{
+			if(random.nextInt(100) < 5)
+			{
+				String [] epic = DungeonMaze.instance.getConfigHandler().itemsRare.get(a).split(" ");
+				items.add(ItemUtils.parseItem(epic));
+			}
+		}
+		/*if(random.nextInt(100) < 80)
 			items.add(new ItemStack(50, 4, (short) 0));
 		if(random.nextInt(100) < 40)
 			items.add(new ItemStack(50, 8, (short) 0));
@@ -180,7 +225,7 @@ public class ChestPopulator extends DMMazeRoomBlockPopulator {
 		if(random.nextInt(100) < 80)
 			items.add(new ItemStack(357, 3, (short) 0));
 		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(357, 5, (short) 0));
+			items.add(new ItemStack(357, 5, (short) 0));*/
 		
 		int itemCountInChest = 3;
 		switch (random.nextInt(8)) {

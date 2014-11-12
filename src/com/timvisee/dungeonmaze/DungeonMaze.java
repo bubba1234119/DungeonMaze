@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import net.ess3.api.IEssentials;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.World;
@@ -137,6 +140,16 @@ public class DungeonMaze extends JavaPlugin {
 		// Show an disabled message
 		log.info("[DungeonMaze] Dungeon Maze Disabled");
 	}
+	
+	
+	/**
+	 * Get essentials instance
+	 */
+	  public static IEssentials getEssentials()
+	  {
+	    return (IEssentials)Bukkit.getPluginManager().getPlugin("Essentials");
+	  }
+	
 	
 	/**
 	 * Set up the API Manager

@@ -1,19 +1,13 @@
 # Dungeon Maze worlds
-worlds: []
-preloadWorlds: []
+worlds: 
+preloadWorlds: [dungeonmaze]
 
 # World mangement
 unloadWorldsOnPluginDisable: true
 
 # Gameplay settings
-allowSurface: true
 worldProtection: false
 blockWhiteList: []
-
-# Update checker
-updateChecker:
-    enabled: true
-    notifyInGame: true
 
 # Permission Support
 usePermissions : true
@@ -21,18 +15,40 @@ useBypassPermissions : true
 
 # Dungeon Maze API settings
 api:
-    enabled: true
+  enabled: true
 
 # Mob Spawner Populator
+#To enable a mob just remove the #
 mobs:
 - Blaze
 - Creeper
-- Enderman
+#- Enderman
+- CaveSpider
 - Ghast
-- MagmaCube
+#- MagmaCube
 - Pig
 - PigZombie
 - Silverfish
 - Skeleton
 - Spider
 - Zombie
+
+#Items List for Chest Populator
+#In the same format as essentials kits for item formatting
+#http://wiki.ess3.net/wiki/Kits
+
+itemsCommon:
+- porkchop 3
+- woodsword 1
+itemsUncommon:
+- stonesword 1
+- porkchop 5
+itemsRare:
+- dsword 1
+- dhelmet 1
+- dplate 1
+- dlegs 1
+- dboots 1
+itemsEpic:
+- dsword 1 sharpness:5
+- godapple 2

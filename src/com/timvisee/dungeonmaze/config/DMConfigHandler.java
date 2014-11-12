@@ -19,7 +19,10 @@ public class DMConfigHandler {
 	public boolean usePermissions;
 	public boolean useBypassPermissions;
 	public List<String> mobs;
-	
+	public List<String> itemsCommon;
+	public List<String> itemsUncommon;
+	public List<String> itemsRare;
+	public List<String> itemsEpic;
 	@SuppressWarnings("unchecked")
 	public void load() {
 		// Get the config instance
@@ -34,6 +37,11 @@ public class DMConfigHandler {
 		useBypassPermissions = config.getBoolean("useBypassPermissions", true);
 		blockWhiteList = (List<Object>) config.getList("blockWhiteList");
 		mobs = config.getStringList("mobs");
+		itemsCommon = config.getStringList("itemsCommon");
+		itemsUncommon = config.getStringList("itemsUncommon");
+		itemsRare = config.getStringList("itemsRare");
+		itemsEpic = config.getStringList("itemsEpic");
+		
 	}
 	
 	/**
