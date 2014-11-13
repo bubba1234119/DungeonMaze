@@ -9,6 +9,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import com.timvisee.dungeonmaze.DungeonMaze;
+import com.timvisee.dungeonmaze.config.DMConfigHandler;
 
 public class DMBlockListener implements Listener {
 	
@@ -21,7 +22,7 @@ public class DMBlockListener implements Listener {
 		if(DungeonMaze.instance.getWorldManager().isDMWorld(w)) {
 			// The world is a Dungeon Maze world
 			
-			if(DungeonMaze.instance.getConfigHandler().worldProtection) {
+			if(DMConfigHandler.worldProtection) {
 				// The world protection is enable
 				
 				if(!p.hasPermission("dungeonmaze.bypass.build")) {
@@ -42,7 +43,7 @@ public class DMBlockListener implements Listener {
 		if(DungeonMaze.instance.getWorldManager().isDMWorld(w)) {
 			// The world is a Dungeon Maze world
 			
-			if(DungeonMaze.instance.getConfigHandler().worldProtection) {
+			if(DMConfigHandler.worldProtection) {
 				// The world protection is enable
 				
 				if((!p.hasPermission("dungeonmaze.bypass.build"))) {

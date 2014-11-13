@@ -39,6 +39,9 @@ public class DungeonMaze extends JavaPlugin {
 	public static final Logger log = Logger.getLogger("Minecraft");
 	private final DMGenerator dmGenerator = new DMGenerator(this);
 
+	//File
+	
+	
 	// Dungeon Maze static instance
 	public static DungeonMaze instance;
 	
@@ -54,7 +57,6 @@ public class DungeonMaze extends JavaPlugin {
 	
 	// Managers, Handlers and Controllers
 	private DMApiController apiController;
-	private DMConfigHandler cfgHand;
 	private DMWorldManager worldMan;
 	private DMCustomStructureManager structMan;
 	
@@ -75,10 +77,10 @@ public class DungeonMaze extends JavaPlugin {
 	 */
 	public void onEnable() {
 		// Set up the config handler (and load the config file)
-		setUpConfigHandler();
-		
+		DMConfigHandler.load();
+
 		// Set up the world manager
-		setUpWorldManager();
+	    setUpWorldManager();
 		
 		// Set up multiverse usage
 		setUpMultiverse();
@@ -107,7 +109,7 @@ public class DungeonMaze extends JavaPlugin {
 	 */
 	public void onDisable() {
 		// Get the config instance
-		FileConfiguration c = getConfigHandler().config;
+		FileConfiguration c = this.getConfig();
 		
 		// Unload all Dungeon Maze worlds if it's enabled
 		if(c.getBoolean("unloadWorldsOnPluginDisable", true)) {
@@ -181,21 +183,7 @@ public class DungeonMaze extends JavaPlugin {
 	 */
 	
 	
-	/**
-	 * Set up the config handler
-	 */
-	public void setUpConfigHandler() {
-		this.cfgHand = new DMConfigHandler();
-		this.cfgHand.load();
-	}
-	
-	/**
-	 * Get the config handler instance
-	 * @return Config handler instance
-	 */
-	public DMConfigHandler getConfigHandler() {
-		return this.cfgHand;
-	}
+
 	
 	/**
 	 * Set up the world manager
@@ -248,11 +236,11 @@ public class DungeonMaze extends JavaPlugin {
 	}
 		
 	public boolean usePermissions() {
-		return getConfigHandler().usePermissions;
+		return DMConfigHandler.usePermissions;
 	}
 	
 	public boolean useBypassPermissions() {
-		return getConfigHandler().useBypassPermissions;
+		return DMConfigHandler.useBypassPermissions;
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -300,14 +288,14 @@ public class DungeonMaze extends JavaPlugin {
 					return true;
 				}
 				System.out.println("Editing Dungeon Maze config.yml file...");
-				List<String> worlds = getConfigHandler().config.getStringList("worlds");
+				List<String> worlds = this.getConfig().getStringList("worlds");
 				if(!worlds.contains(w))
 					worlds.add(w);
-				getConfigHandler().config.set("worlds", worlds);
-				List<String> preloadWorlds = getConfigHandler().config.getStringList("preloadWorlds");
+				this.getConfig().set("worlds", worlds);
+				List<String> preloadWorlds = this.getConfig().getStringList("preloadWorlds");
 				if(!preloadWorlds.contains(w))
 					preloadWorlds.add(w);
-				getConfigHandler().config.set("preloadWorlds", preloadWorlds);
+				this.getConfig().set("preloadWorlds", preloadWorlds);
 				saveConfig();
 				System.out.println("Editing finished!");
 
@@ -417,7 +405,7 @@ public class DungeonMaze extends JavaPlugin {
 				sender.sendMessage(ChatColor.YELLOW + "Reloading Dungeon Maze");
 				
 				// Reload configs and worlds
-				getConfigHandler().load();
+				DMConfigHandler.load();
 				getWorldManager();
 				getWorldManager().preloadWorlds();
 				
@@ -514,12 +502,6 @@ public class DungeonMaze extends JavaPlugin {
 		// Get and return the config from an external file
 	    return YamlConfiguration.loadConfiguration(file);
 	}
-	
-	@Override
-	public FileConfiguration getConfig() {
-		return getConfigHandler().config;
-	}
-
 	@Override
 	public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
 		return this.dmGenerator;

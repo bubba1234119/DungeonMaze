@@ -9,6 +9,7 @@ import org.bukkit.plugin.Plugin;
 
 import com.timvisee.dungeonmaze.DungeonMaze;
 import com.timvisee.dungeonmaze.api.manager.DMAWorldManager;
+import com.timvisee.dungeonmaze.config.DMConfigHandler;
 
 public class DungeonMazeApi {
 	
@@ -177,27 +178,13 @@ public class DungeonMazeApi {
 			return false;
 		
 		if(getDM().getWorldManager().isDMWorld(w))
-			if(getDM().getConfigHandler().worldProtection)
+			if(DMConfigHandler.worldProtection)
 				return p.hasPermission("dungeonmaze.bypass.build");
 		return true;
 	}
 	
 	/**
-	 * Check if a player is able to go onto the surface in a DM world
-	 * @param w the world name
-	 * @param p the player
-	 * @return true if the player is allowed to go on the surface
-	 */
-	public boolean isPlayerAllowedOnDMWorldSurface(String w, Player p) {
-		// Make sure the plugin is hooked into Dungeon Maze
-		if(!isHooked())
-			return true;
-		
-		if(getDM().getWorldManager().isDMWorld(w))
-			if(!getDM().getConfigHandler().allowSurface)
-				return p.hasPermission("dungeonmaze.bypass.surface");
-		return true;
-	}
+	
 	
 	/**
 	 * 
@@ -205,7 +192,7 @@ public class DungeonMazeApi {
 	 * @return true if the object is in the list
 	 */
 	public boolean isInWhiteList(Object target){
-		List<Object> list = DungeonMaze.instance.getConfigHandler().blockWhiteList;
+		List<Object> list = DMConfigHandler.blockWhiteList;
 		
 		if(list == null)
 			return(false);
@@ -222,6 +209,6 @@ public class DungeonMazeApi {
 	 * @return true if the mobspawner is allow for this mob
 	 */
 	public boolean isMobSpawnerAllowed(String mob) {
-		return getDM().getConfigHandler().mobs.contains(mob);
+		return DMConfigHandler.mobs.contains(mob);
 	}
 }

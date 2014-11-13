@@ -1,46 +1,53 @@
 package com.timvisee.dungeonmaze.config;
 
+import java.io.File;
 import java.util.List;
 
 import org.bukkit.Material;
-import org.bukkit.configuration.file.FileConfiguration;
 
 import com.timvisee.dungeonmaze.DungeonMaze;
 
 public class DMConfigHandler {
 	
 	// Configuration cache
-	public FileConfiguration config;
-	public boolean unloadWorldsOnPluginDisable;
-	public boolean allowSurface;
-	public boolean worldProtection;
-	public List<Object> blockWhiteList;
-	public boolean enableUpdateCheckerOnStartup;
-	public boolean usePermissions;
-	public boolean useBypassPermissions;
-	public List<String> mobs;
-	public List<String> itemsCommon;
-	public List<String> itemsUncommon;
-	public List<String> itemsRare;
-	public List<String> itemsEpic;
+	//public FileConfiguration config;
+	private static File configFile = new File(DungeonMaze.instance.getDataFolder().getPath(),"config.yml");
+	public static boolean unloadWorldsOnPluginDisable;
+	public static boolean allowSurface;
+	public static boolean worldProtection;
+	public static List<Object> blockWhiteList;
+	public static boolean enableUpdateCheckerOnStartup;
+	public static boolean usePermissions;
+	public static boolean useBypassPermissions;
+	public static List<String> mobs;
+	public static List<String> itemsCommon;
+	public static List<String> itemsUncommon;
+	public static List<String> itemsRare;
+	public static List<String> itemsEpic;
+	public static String defaultItem;
 	@SuppressWarnings("unchecked")
-	public void load() {
+	public static void load() {
 		// Get the config instance
-		config = new DMConfig();
+		//config = new DMConfig();
+		
+		if(!configFile.exists())
+		DungeonMaze.instance.saveDefaultConfig();
+		else
+		DungeonMaze.instance.reloadConfig();
 		
 		// Load (and cache) the properties
-		unloadWorldsOnPluginDisable = config.getBoolean("unloadWorldsOnPluginDisable", true);
-		allowSurface = config.getBoolean("allowSurface", true);
-		worldProtection = config.getBoolean("worldProtection", false);
-		enableUpdateCheckerOnStartup = config.getBoolean("updateChecker.enabled", true);
-		usePermissions = config.getBoolean("usePermissions", true);
-		useBypassPermissions = config.getBoolean("useBypassPermissions", true);
-		blockWhiteList = (List<Object>) config.getList("blockWhiteList");
-		mobs = config.getStringList("mobs");
-		itemsCommon = config.getStringList("itemsCommon");
-		itemsUncommon = config.getStringList("itemsUncommon");
-		itemsRare = config.getStringList("itemsRare");
-		itemsEpic = config.getStringList("itemsEpic");
+		DMConfigHandler.unloadWorldsOnPluginDisable = DungeonMaze.instance.getConfig().getBoolean("unloadWorldsOnPluginDisable", true);
+		DMConfigHandler.worldProtection = DungeonMaze.instance.getConfig().getBoolean("worldProtection", false);
+		DMConfigHandler.enableUpdateCheckerOnStartup = DungeonMaze.instance.getConfig().getBoolean("updateChecker.enabled", true);
+		DMConfigHandler.usePermissions = DungeonMaze.instance.getConfig().getBoolean("usePermissions", true);
+		DMConfigHandler.useBypassPermissions = DungeonMaze.instance.getConfig().getBoolean("useBypassPermissions", true);
+		DMConfigHandler.blockWhiteList = (List<Object>) DungeonMaze.instance.getConfig().getList("blockWhiteList");
+		DMConfigHandler.mobs = DungeonMaze.instance.getConfig().getStringList("mobs");
+		DMConfigHandler.itemsCommon = DungeonMaze.instance.getConfig().getStringList("itemsCommon");
+		DMConfigHandler.itemsUncommon = DungeonMaze.instance.getConfig().getStringList("itemsUncommon");
+		DMConfigHandler.itemsRare = DungeonMaze.instance.getConfig().getStringList("itemsRare");
+		DMConfigHandler.itemsEpic = DungeonMaze.instance.getConfig().getStringList("itemsEpic");
+		DMConfigHandler.defaultItem = DungeonMaze.instance.getConfig().getString("defaultItem");
 		
 	}
 	
@@ -51,7 +58,7 @@ public class DMConfigHandler {
 	 */
 	@Deprecated // Deprecate this for use Material enum
 	public boolean isInWhiteList(int target) {
-		List<Object> list = DungeonMaze.instance.getConfigHandler().blockWhiteList;
+		List<Object> list = DMConfigHandler.blockWhiteList;
 		
 		if(list == null)
 			return(false);
@@ -73,7 +80,7 @@ public class DMConfigHandler {
 	 */
 	public boolean isInWhiteList(Material material) {
 		int target = material.getId();
-		List<Object> list = DungeonMaze.instance.getConfigHandler().blockWhiteList;
+		List<Object> list = DMConfigHandler.blockWhiteList;
 		
 		if(list == null)
 			return(false);
@@ -90,6 +97,6 @@ public class DMConfigHandler {
 	 * @return True if the mob spawner is allowed for this mob
 	 */
 	public boolean isMobSpawnerAllowed(String mob) {
-		return DungeonMaze.instance.getConfigHandler().mobs.contains(mob);
+		return mobs.contains(mob);
 	}
 }

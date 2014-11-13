@@ -46,7 +46,7 @@ public class ItemUtils
     }
     if (lores.length > 0)
     {
-      List<String> loreList = new ArrayList(lores.length);
+      List<String> loreList = new ArrayList<String>(lores.length);
       for (String lore : lores) {
         loreList.add(ChatColor.translateAlternateColorCodes('&', lore));
       }

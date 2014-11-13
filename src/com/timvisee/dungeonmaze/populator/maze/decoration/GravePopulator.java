@@ -2,15 +2,12 @@ package com.timvisee.dungeonmaze.populator.maze.decoration;
 
 import java.util.Random;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
-import org.bukkit.entity.Player;
 
-import com.timvisee.dungeonmaze.DungeonMaze;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulator;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulatorArgs;
 

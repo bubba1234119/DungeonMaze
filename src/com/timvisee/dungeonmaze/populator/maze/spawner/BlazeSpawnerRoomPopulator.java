@@ -14,6 +14,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
 import com.timvisee.dungeonmaze.DungeonMaze;
+import com.timvisee.dungeonmaze.config.DMConfigHandler;
 import com.timvisee.dungeonmaze.event.generation.DMGenerationChestEvent;
 import com.timvisee.dungeonmaze.event.generation.DMGenerationSpawnerCause;
 import com.timvisee.dungeonmaze.event.generation.DMGenerationSpawnerEvent;
@@ -21,6 +22,7 @@ import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulator;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulatorArgs;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeStructureType;
 import com.timvisee.dungeonmaze.util.DMChestUtils;
+import com.timvisee.dungeonmaze.util.ItemUtils;
 
 public class BlazeSpawnerRoomPopulator extends DMMazeRoomBlockPopulator {
 	public static final int MIN_LAYER = 1;
@@ -112,7 +114,7 @@ public class BlazeSpawnerRoomPopulator extends DMMazeRoomBlockPopulator {
 			c.getBlock(x + 5, yFloor + 2, z + 5).setType(Material.NETHER_FENCE);
 			
 			// Generate the spawner
-			if (DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Blaze")) {
+			if (DMConfigHandler.mobs.contains("Blaze")) {
 				int spawnerX = x + 3 + rand.nextInt(2);
 				int spawnerY = yFloor + 2;
 				int spawnerZ = z + 3 + rand.nextInt(2);
@@ -175,99 +177,52 @@ public class BlazeSpawnerRoomPopulator extends DMMazeRoomBlockPopulator {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	public List<ItemStack> generateChestContents(Random random) {
 		List<ItemStack> items = new ArrayList<ItemStack>();
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(50, 4, (short) 0));
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(50, 8, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(50, 12, (short) 0));
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(260, 1, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(262, 16, (short) 0));
-		if(random.nextInt(100) < 5)
-			items.add(new ItemStack(262, 24, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(264, 1, (short) 0));
-		if(random.nextInt(100) < 50)
-			items.add(new ItemStack(265, 1, (short) 0));
-		if(random.nextInt(100) < 60)
-			items.add(new ItemStack(266, 1, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(267, 1, (short) 0));
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(268, 1, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(272, 1, (short) 0));
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(296, 1, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(296, 2, (short) 0));
-		if(random.nextInt(100) < 5)
-			items.add(new ItemStack(296, 3, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(297, 1, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(298, 1, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(299, 1, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(300, 1, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(301, 1, (short) 0));
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(302, 1, (short) 0));
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(303, 1, (short) 0));
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(304, 1, (short) 0));
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(305, 1, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(306, 1, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(307, 1, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(308, 1, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(309, 1, (short) 0));
-		if(random.nextInt(100) < 30)
-			items.add(new ItemStack(318, 3, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(318, 5, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(318, 7, (short) 0));
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(319, 1, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(320, 1, (short) 0));
-		if(random.nextInt(100) < 15)
-			items.add(new ItemStack(331, 5, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(331, 8, (short) 0));
-		if(random.nextInt(100) < 5)
-			items.add(new ItemStack(331, 13, (short) 0));
-		if(random.nextInt(100) < 3)
-			items.add(new ItemStack(331, 21, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(345, 1, (short) 0));
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(349, 1, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(350, 1, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(350, 1, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(351, 1, (short) 3));
-		if(random.nextInt(100) < 5)
-			items.add(new ItemStack(354, 1, (short) 0));
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(357, 3, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(357, 5, (short) 0));
+		for(int i = 0; i < DMConfigHandler.itemsCommon.size(); i++)
+		{
+			int next = random.nextInt(100);
+			random.setSeed(System.nanoTime() + next + 30 + (System.nanoTime() / 2));
+			if(random.nextInt(100) < 80)
+			{
+				String [] common = DMConfigHandler.itemsCommon.get(i).split(" ");
+				items.add(ItemUtils.parseItem(common));
+			}
+		}
+		
+		for(int j = 0; j < DMConfigHandler.itemsUncommon.size(); j++)
+		{
+			int next = random.nextInt(1000);
+			random.setSeed(System.nanoTime() + System.currentTimeMillis() + next);
+			if(random.nextInt(100) < 50)
+			{
+				String [] uncommon = DMConfigHandler.itemsUncommon.get(j).split(" ");
+				items.add(ItemUtils.parseItem(uncommon));
+			}
+		}
+		
+		for(int h = 0; h < DMConfigHandler.itemsRare.size(); h++)
+		{
+			int next = random.nextInt(100);
+			random.setSeed(System.currentTimeMillis() + System.currentTimeMillis() + next + 100);
+			if(random.nextInt(100) < 30)
+			{
+				String [] rare = DMConfigHandler.itemsRare.get(h).split(" ");
+				items.add(ItemUtils.parseItem(rare));
+			}
+		}
+		
+		for(int a = 0; a < DMConfigHandler.itemsEpic.size(); a++)
+		{
+			int next = random.nextInt(30);
+			random.setSeed(System.currentTimeMillis() + System.nanoTime() + System.currentTimeMillis() + next);
+			if(random.nextInt(100) < 5)
+			{
+				String [] epic = DMConfigHandler.itemsEpic.get(a).split(" ");
+				items.add(ItemUtils.parseItem(epic));
+			}
+		}
+
 		
 		int itemCountInChest = 3;
 		switch (random.nextInt(8)) {
@@ -301,8 +256,18 @@ public class BlazeSpawnerRoomPopulator extends DMMazeRoomBlockPopulator {
 		
 		// Create a list of item contents with the right amount of items
 		List<ItemStack> newContents = new ArrayList<ItemStack>();
+		if(items.size() > 0)
+		{
 		for (int i = 0; i < itemCountInChest; i++)
+		{
 			newContents.add(items.get(random.nextInt(items.size())));
+		}
+	}
+		else
+		{
+			String [] defaultChestItem = DMConfigHandler.defaultItem.split(" ");
+			items.add(ItemUtils.parseItem(defaultChestItem));
+		}
 		return newContents;
 	}
 	

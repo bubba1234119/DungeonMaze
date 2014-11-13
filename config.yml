@@ -36,6 +36,8 @@ mobs:
 #Items List for Chest Populator
 #In the same format as essentials kits for item formatting
 #http://wiki.ess3.net/wiki/Kits
+#Will fall back to the default item if no items are generated for the chest
+defaultItem: porkchop 1
 
 itemsCommon:
 - porkchop 3

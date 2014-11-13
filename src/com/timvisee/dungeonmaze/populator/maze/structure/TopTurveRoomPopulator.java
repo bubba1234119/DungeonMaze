@@ -10,6 +10,7 @@ import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
 
 import com.timvisee.dungeonmaze.DungeonMaze;
+import com.timvisee.dungeonmaze.config.DMConfigHandler;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulator;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulatorArgs;
 
@@ -91,13 +92,13 @@ public class TopTurveRoomPopulator extends DMMazeRoomBlockPopulator {
 			c.getBlock(x + 5, y + 5 + ceilingOffset, z + 4).setType(Material.NETHERRACK);
 			
 			// Spawners
-			if(DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Pig")) {
+			if(DMConfigHandler.mobs.contains("Pig")) {
 				c.getBlock(x + 3, y + 5 + ceilingOffset, z + 4).setType(Material.MOB_SPAWNER);
 				CreatureSpawner PigSpawner = (CreatureSpawner) c.getBlock(x + 3, y + 5 + ceilingOffset, z + 4).getState();
 				PigSpawner.setSpawnedType(EntityType.PIG);
 			}
 			
-			if(DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Skeleton")) {
+			if(DMConfigHandler.mobs.contains("Skeleton")) {
 				c.getBlock(x + 4, y + 5 + ceilingOffset, z + 3).setType(Material.MOB_SPAWNER);
 				CreatureSpawner PigSpawner2 = (CreatureSpawner) c.getBlock(x + 4, y + 5 + ceilingOffset, z + 3).getState();
 				PigSpawner2.setSpawnedType(EntityType.SKELETON);

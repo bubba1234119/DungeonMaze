@@ -13,11 +13,13 @@ import org.bukkit.block.Furnace;
 import org.bukkit.inventory.ItemStack;
 
 import com.timvisee.dungeonmaze.DungeonMaze;
+import com.timvisee.dungeonmaze.config.DMConfigHandler;
 import com.timvisee.dungeonmaze.event.generation.DMGenerationChestEvent;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulator;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulatorArgs;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeStructureType;
 import com.timvisee.dungeonmaze.util.DMChestUtils;
+import com.timvisee.dungeonmaze.util.ItemUtils;
 
 public class AbandonedDefenceCastleRoomPopulator extends DMMazeRoomBlockPopulator {
 	public static final int MIN_LAYER = 2;
@@ -150,23 +152,23 @@ public class AbandonedDefenceCastleRoomPopulator extends DMMazeRoomBlockPopulato
 			c.getBlock(x + 5, yFloor + 3, z + 6).setType(Material.WEB);
 			c.getBlock(x + 6, yFloor + 3, z + 5).setType(Material.WEB);
 			c.getBlock(x + 0, yFloor + 4, z + 6).setType(Material.WEB);
-			
+
 			// Add some moss and cracked stone bricks
 			for (int i = 0; i < MOSS_ITERATIONS; i++) {
 				if (rand.nextInt(100) < MOSS_CHANCE) {
-					
+
 					Block block = c.getBlock(x + rand.nextInt(8), rand.nextInt((y + 6) - y + 1) + y, z + rand.nextInt(8));
 					if (block.getType() == Material.COBBLESTONE)
 						block.setType(Material.MOSSY_COBBLESTONE);
-						
+
 					if (block.getType() == Material.SMOOTH_BRICK)
 						block.setData((byte) 1);
 				}
 			}
-			
+
 			for (int i = 0; i < CRACKED_ITERATIONS; i++) {
 				if (rand.nextInt(100) < CRACKED_CHANCE) {
-					
+
 					Block block = c.getBlock(x + rand.nextInt(8), rand.nextInt((y + 6) - y + 1) + y, z + rand.nextInt(8));
 					if (block.getType() == Material.SMOOTH_BRICK)
 						block.setData((byte) 2);
@@ -174,235 +176,55 @@ public class AbandonedDefenceCastleRoomPopulator extends DMMazeRoomBlockPopulato
 			}
 		}
 	}
-	
+
 	public void addItemsToFurnace(Random random, Furnace furnace) {
 		List<ItemStack> items = new ArrayList<ItemStack>();
-		
-		if(random.nextInt(100) < 5)
-			items.add(new ItemStack(41, 1, (short) 0));
-		
-		if(random.nextInt(100) < 5)
-			items.add(new ItemStack(42, 1, (short) 0));
-		
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(45, 1, (short) 0));
-		
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(263, 1, (short) 0));
-		
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(263, 1, (short) 1));
-		
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(265, 2, (short) 0));
-		
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(265, 4, (short) 0));
-		
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(266, 2, (short) 0));
-		
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(266, 4, (short) 0));
-		
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(297, 1, (short) 0));
-		
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(325, 1, (short) 0));
-		
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(366, 2, (short) 0));
-		
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(366, 4, (short) 0));
-		
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(318, 3, (short) 0));
-		
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(318, 5, (short) 0));
-		
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(320, 1, (short) 0));
-		
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(350, 1, (short) 0));
-		
-		if(random.nextInt(100) < 30)
-			items.add(new ItemStack(368, 1, (short) 0));
-		
-		if(random.nextInt(100) < 30)
-			items.add(new ItemStack(369, 1, (short) 0));
-		
-		if(random.nextInt(100) < 30)
-			items.add(new ItemStack(370, 1, (short) 0));
-		
-		if(random.nextInt(100) < 45)
-			items.add(new ItemStack(371, 1, (short) 0));
-		
-		if(random.nextInt(100) < 30)
-			items.add(new ItemStack(372, 1, (short) 0));
-		
-		if(random.nextInt(100) < 30)
-			items.add(new ItemStack(375, 1, (short) 0));
-		
-		if(random.nextInt(100) < 30)
-			items.add(new ItemStack(377, 1, (short) 0));
-		
-		if(random.nextInt(100) < 30)
-			items.add(new ItemStack(378, 1, (short) 0));
-		
-		if(random.nextInt(100) < 30)
-			items.add(new ItemStack(381, 1, (short) 0));
-		
-		if(random.nextInt(100) < 30)
-			items.add(new ItemStack(382, 1, (short) 0));
-		
+
+		for(int j = 0; j < DMConfigHandler.itemsUncommon.size(); j++)
+		{
+			int next = random.nextInt(1000);
+			random.setSeed(System.nanoTime() + System.currentTimeMillis() + next);
+			if(random.nextInt(100) < 50)
+			{
+				String [] uncommon = DMConfigHandler.itemsUncommon.get(j).split(" ");
+				items.add(ItemUtils.parseItem(uncommon));
+			}
+		}
+
+		for(int h = 0; h < DMConfigHandler.itemsRare.size(); h++)
+		{
+			int next = random.nextInt(100);
+			random.setSeed(System.currentTimeMillis() + System.currentTimeMillis() + next + 100);
+			if(random.nextInt(100) < 30)
+			{
+				String [] rare = DMConfigHandler.itemsRare.get(h).split(" ");
+				items.add(ItemUtils.parseItem(rare));
+			}
+		}
+
 		// Add the selected items into the furnace
-		if(random.nextInt(100) < 70)
-			furnace.getInventory().setResult(/*random.nextInt(furnace.getInventory().getSize()), */items.get(random.nextInt(items.size())));
+		if(items.size() > 0)
+		{
+			if(random.nextInt(100) < 70)
+				furnace.getInventory().setResult(items.get(random.nextInt(items.size())));
+		}
 		furnace.update();
 	}
-	
+
 	public List<ItemStack> genChestContent(Random random) {
 		List<ItemStack> items = new ArrayList<ItemStack>();
-		
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(50, 4, (short) 0));
-		
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(50, 8, (short) 0));
-		
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(50, 12, (short) 0));
-		
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(260, 1, (short) 0));
-		
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(262, 16, (short) 0));
-		
-		if(random.nextInt(100) < 5)
-			items.add(new ItemStack(262, 24, (short) 0));
-		
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(264, 1, (short) 0));
-		
-		if(random.nextInt(100) < 50)
-			items.add(new ItemStack(265, 1, (short) 0));
-		
-		if(random.nextInt(100) < 60)
-			items.add(new ItemStack(266, 1, (short) 0));
-		
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(267, 1, (short) 0));
-		
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(268, 1, (short) 0));
-		
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(272, 1, (short) 0));
-		
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(296, 1, (short) 0));
-		
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(296, 2, (short) 0));
-		
-		if(random.nextInt(100) < 5)
-			items.add(new ItemStack(296, 3, (short) 0));
-		
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(297, 1, (short) 0));
-		
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(298, 1, (short) 0));
-		
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(299, 1, (short) 0));
-		
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(300, 1, (short) 0));
-		
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(301, 1, (short) 0));
-		
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(302, 1, (short) 0)); 
-		
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(303, 1, (short) 0));
-		
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(304, 1, (short) 0));
-		
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(305, 1, (short) 0));
-		
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(306, 1, (short) 0));
-		
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(307, 1, (short) 0));
-		
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(308, 1, (short) 0));
-		
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(309, 1, (short) 0));
-		
-		if(random.nextInt(100) < 30)
-			items.add(new ItemStack(318, 3, (short) 0));
-		
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(318, 5, (short) 0));
-		
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(318, 7, (short) 0));
-		
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(319, 1, (short) 0));
-		
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(320, 1, (short) 0));
-		
-		if(random.nextInt(100) < 15)
-			items.add(new ItemStack(331, 5, (short) 0));
-		
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(331, 8, (short) 0));
-		
-		if(random.nextInt(100) < 5)
-			items.add(new ItemStack(331, 13, (short) 0));
-		
-		if(random.nextInt(100) < 3)
-			items.add(new ItemStack(331, 21, (short) 0));
-		
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(345, 1, (short) 0));
-		
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(349, 1, (short) 0));
-		
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(350, 1, (short) 0));
-		
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(350, 1, (short) 0));
-		
-		if(random.nextInt(100) < 20) 			
-			items.add(new ItemStack(351, 1, (short) 3));
-		
-		if(random.nextInt(100) < 5)
-			items.add(new ItemStack(354, 1, (short) 0));
-		
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(357, 3, (short) 0));
-		
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(357, 5, (short) 0));
-		
+		for(int j = 0; j < DMConfigHandler.itemsUncommon.size(); j++)
+		{
+			int next = random.nextInt(1000);
+			random.setSeed(System.nanoTime() + System.currentTimeMillis() + next);
+			if(random.nextInt(100) < 50)
+			{
+				String [] uncommon = DMConfigHandler.itemsUncommon.get(j).split(" ");
+				items.add(ItemUtils.parseItem(uncommon));
+			}
+		}
+
+
 		int itemCountInChest = 3;
 		switch (random.nextInt(8)) {
 		case 0:
@@ -433,15 +255,24 @@ public class AbandonedDefenceCastleRoomPopulator extends DMMazeRoomBlockPopulato
 			itemCountInChest = 3;
 			break;
 		}
-		
+
 		List<ItemStack> result = new ArrayList<ItemStack>();
-		
-		// Add the selected items randomly
-		for (int i = 0; i < itemCountInChest; i++)
-			result.add(items.get(random.nextInt(items.size())));
+
+		if(items.size() > 0)
+		{
+			for (int i = 0; i < itemCountInChest; i++)
+			{
+				result.add(items.get(random.nextInt(items.size())));
+			}
+		}
+		else
+		{
+			String [] defaultChestItem = DMConfigHandler.defaultItem.split(" ");
+			result.add(ItemUtils.parseItem(defaultChestItem));
+		}
 		return result;
 	}
-	
+
 	/**
 	 * Get the minimum layer
 	 * @return Minimum layer
@@ -450,7 +281,7 @@ public class AbandonedDefenceCastleRoomPopulator extends DMMazeRoomBlockPopulato
 	public int getMinimumLayer() {
 		return MIN_LAYER;
 	}
-	
+
 	/**
 	 * Get the maximum layer
 	 * @return Maximum layer

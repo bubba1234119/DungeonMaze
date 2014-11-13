@@ -11,6 +11,7 @@ import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
 
 import com.timvisee.dungeonmaze.DungeonMaze;
+import com.timvisee.dungeonmaze.config.DMConfigHandler;
 import com.timvisee.dungeonmaze.event.generation.DMGenerationSpawnerCause;
 import com.timvisee.dungeonmaze.event.generation.DMGenerationSpawnerEvent;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulator;
@@ -50,7 +51,7 @@ public class CreeperSpawnerRoomPopulator extends DMMazeRoomBlockPopulator {
 			c.getBlock(x + 3, yFloor + 2, z + 3).setType(Material.NETHER_BRICK);
 			
 			// Create the spawner
-			if(DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Creeper")) {
+			if(DMConfigHandler.mobs.contains("Creeper")) {
 				Block spawnerBlock = c.getBlock(x + 3, yFloor + 1, z + 3);
 				
 				// Call the spawner generation event

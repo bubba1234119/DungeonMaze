@@ -2,7 +2,6 @@ package com.timvisee.dungeonmaze.populator.maze.spawner;
 
 import java.util.Random;
 
-
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
@@ -10,7 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
 
-import com.timvisee.dungeonmaze.DungeonMaze;
+import com.timvisee.dungeonmaze.config.DMConfigHandler;
 import com.timvisee.dungeonmaze.event.generation.DMGenerationSpawnerCause;
 import com.timvisee.dungeonmaze.event.generation.DMGenerationSpawnerEvent;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulator;
@@ -49,27 +48,26 @@ public class SpawnerPopulator extends DMMazeRoomBlockPopulator {
 					// Generate a random spawnedType for the spawner
 					EntityType spawnedType = null;
 					int i = rand.nextInt(25) + 1;
-					if(i >= 1 && i <= 9 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Zombie"))
+					if(i >= 1 && i <= 9 && DMConfigHandler.mobs.contains("Zombie"))
 						spawnedType = EntityType.ZOMBIE;
 					else if(i == 10)
 						spawnedType = EntityType.CAVE_SPIDER;
-					else if(i >= 11 && i <= 15 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Skeleton"))
+					else if(i >= 11 && i <= 15 && DMConfigHandler.mobs.contains("Skeleton"))
 						spawnedType = EntityType.SKELETON;
 						
-					else if(i >= 16 && i <= 19 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Spider"))
+					else if(i >= 16 && i <= 19 && DMConfigHandler.mobs.contains("Spider"))
 						spawnedType = EntityType.SPIDER;
-					else if(i == 20 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Enderman"))
+					else if(i == 20 && DMConfigHandler.mobs.contains("Enderman"))
 						spawnedType = EntityType.ENDERMAN;
-					else if(i >= 21 && i <= 22 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("PigZombie"))
+					else if(i >= 21 && i <= 22 && DMConfigHandler.mobs.contains("PigZombie"))
 						spawnedType = EntityType.PIG_ZOMBIE;
-					
-					else if(i == 23 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Creeper"))
+					else if(i == 23 && DMConfigHandler.mobs.contains("Creeper"))
 						spawnedType = EntityType.CREEPER;
 					
-					else if(i == 24 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("MagmaCube"))
+					else if(i == 24 && DMConfigHandler.mobs.contains("MagmaCube"))
 						spawnedType = EntityType.MAGMA_CUBE;
 					
-					else if(i == 25 && DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Silverfish"))
+					else if(i == 25 && DMConfigHandler.mobs.contains("Silverfish"))
 						spawnedType = EntityType.SILVERFISH;
 					
 					else // if no entity type is allowed and the random return none value, continue the for loop

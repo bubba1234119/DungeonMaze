@@ -16,7 +16,6 @@ import com.timvisee.dungeonmaze.populator.maze.decoration.ChestPopulator;
 import com.timvisee.dungeonmaze.populator.maze.decoration.CoalorePopulator;
 import com.timvisee.dungeonmaze.populator.maze.decoration.CobblestonePopulator;
 import com.timvisee.dungeonmaze.populator.maze.decoration.CrackedStoneBrickPopulator;
-import com.timvisee.dungeonmaze.populator.maze.decoration.ExplosionPopulator;
 import com.timvisee.dungeonmaze.populator.maze.decoration.GravePopulator;
 import com.timvisee.dungeonmaze.populator.maze.decoration.IronBarPopulator;
 import com.timvisee.dungeonmaze.populator.maze.decoration.LadderPopulator;

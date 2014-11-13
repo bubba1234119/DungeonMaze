@@ -1,14 +1,9 @@
 package com.timvisee.dungeonmaze.populator.maze.decoration;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import org.apache.commons.lang.math.NumberUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
@@ -16,7 +11,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.inventory.ItemStack;
 
-import com.timvisee.dungeonmaze.DungeonMaze;
+import com.timvisee.dungeonmaze.config.DMConfigHandler;
 import com.timvisee.dungeonmaze.event.generation.DMGenerationChestEvent;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulator;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeRoomBlockPopulatorArgs;
@@ -29,9 +24,7 @@ public class ChestPopulator extends DMMazeRoomBlockPopulator {
 	public static final int MAX_LAYER = 7;
 	public static final int CHANCE_OF_CHEST = 3;
 	public static final double CHANCE_OF_CHEST_ADDITION_PER_LEVEL = -0.333; // to 1
-	private final transient Pattern splitPattern = Pattern.compile("((.*)[:+',;.](\\d+))");
-	private final transient Map<String, Integer> items = new HashMap<String, Integer>();
-	private final transient Map<String, Short> durabilities = new HashMap<String, Short>();
+
 
 	@Override
 	public void populateRoom(DMMazeRoomBlockPopulatorArgs args) {
@@ -106,126 +99,51 @@ public class ChestPopulator extends DMMazeRoomBlockPopulator {
 	public List<ItemStack> generateChestContents(Random random) {
 		// TODO: Use class for this, to also add feature to re loot chests
 		List<ItemStack> items = new ArrayList<ItemStack>();
-		for(int i = 0; i < DungeonMaze.instance.getConfigHandler().itemsCommon.size(); i++)
+		
+		for(int i = 0; i < DMConfigHandler.itemsCommon.size(); i++)
 		{
+			int next = random.nextInt(100);
+			random.setSeed(System.nanoTime() + next + 30 + (System.nanoTime() / 2));
 			if(random.nextInt(100) < 80)
 			{
-				String [] common = DungeonMaze.instance.getConfigHandler().itemsCommon.get(i).split(" ");
+				String [] common = DMConfigHandler.itemsCommon.get(i).split(" ");
 				items.add(ItemUtils.parseItem(common));
 			}
 		}
-		for(int j = 0; j < DungeonMaze.instance.getConfigHandler().itemsUncommon.size(); j++)
+		
+		for(int j = 0; j < DMConfigHandler.itemsUncommon.size(); j++)
 		{
+			int next = random.nextInt(1000);
+			random.setSeed(System.nanoTime() + System.currentTimeMillis() + next);
 			if(random.nextInt(100) < 50)
 			{
-				String [] uncommon = DungeonMaze.instance.getConfigHandler().itemsUncommon.get(j).split(" ");
+				String [] uncommon = DMConfigHandler.itemsUncommon.get(j).split(" ");
 				items.add(ItemUtils.parseItem(uncommon));
 			}
 		}
-		for(int h = 0; h < DungeonMaze.instance.getConfigHandler().itemsRare.size(); h++)
+		
+		for(int h = 0; h < DMConfigHandler.itemsRare.size(); h++)
 		{
-			if(random.nextInt(100) < 30)
+			int next = random.nextInt(100);
+			random.setSeed(System.currentTimeMillis() + System.currentTimeMillis() + next + 100);
+			if(random.nextInt(100) < 10)
 			{
-				String [] rare = DungeonMaze.instance.getConfigHandler().itemsRare.get(h).split(" ");
+				String [] rare = DMConfigHandler.itemsRare.get(h).split(" ");
 				items.add(ItemUtils.parseItem(rare));
 			}
 		}
-		for(int a = 0; a < DungeonMaze.instance.getConfigHandler().itemsRare.size(); a++)
+		
+		for(int a = 0; a < DMConfigHandler.itemsEpic.size(); a++)
 		{
+			int next = random.nextInt(30);
+			random.setSeed(System.currentTimeMillis() + System.nanoTime() + System.currentTimeMillis() + next);
 			if(random.nextInt(100) < 5)
 			{
-				String [] epic = DungeonMaze.instance.getConfigHandler().itemsRare.get(a).split(" ");
+				String [] epic = DMConfigHandler.itemsEpic.get(a).split(" ");
 				items.add(ItemUtils.parseItem(epic));
 			}
 		}
-		/*if(random.nextInt(100) < 80)
-			items.add(new ItemStack(50, 4, (short) 0));
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(50, 8, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(50, 12, (short) 0));
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(260, 1, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(262, 16, (short) 0));
-		if(random.nextInt(100) < 5)
-			items.add(new ItemStack(262, 24, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(264, 1, (short) 0));
-		if(random.nextInt(100) < 50)
-			items.add(new ItemStack(265, 1, (short) 0));
-		if(random.nextInt(100) < 60)
-			items.add(new ItemStack(266, 1, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(267, 1, (short) 0));
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(268, 1, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(272, 1, (short) 0));
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(296, 1, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(296, 2, (short) 0));
-		if(random.nextInt(100) < 5)
-			items.add(new ItemStack(296, 3, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(297, 1, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(298, 1, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(299, 1, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(300, 1, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(301, 1, (short) 0));
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(302, 1, (short) 0));
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(303, 1, (short) 0));
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(304, 1, (short) 0));
-		if(random.nextInt(100) < 40)
-			items.add(new ItemStack(305, 1, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(306, 1, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(307, 1, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(308, 1, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(309, 1, (short) 0));
-		if(random.nextInt(100) < 30)
-			items.add(new ItemStack(318, 3, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(318, 5, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(318, 7, (short) 0));
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(319, 1, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(320, 1, (short) 0));
-		if(random.nextInt(100) < 15)
-			items.add(new ItemStack(331, 5, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(331, 8, (short) 0));
-		if(random.nextInt(100) < 5)
-			items.add(new ItemStack(331, 13, (short) 0));
-		if(random.nextInt(100) < 3)
-			items.add(new ItemStack(331, 21, (short) 0));
-		if(random.nextInt(100) < 10)
-			items.add(new ItemStack(345, 1, (short) 0));
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(349, 1, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(350, 1, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(351, 1, (short) 3));
-		if(random.nextInt(100) < 5)
-			items.add(new ItemStack(354, 1, (short) 0));
-		if(random.nextInt(100) < 80)
-			items.add(new ItemStack(357, 3, (short) 0));
-		if(random.nextInt(100) < 20)
-			items.add(new ItemStack(357, 5, (short) 0));*/
+
 		
 		int itemCountInChest = 3;
 		switch (random.nextInt(8)) {
@@ -259,8 +177,18 @@ public class ChestPopulator extends DMMazeRoomBlockPopulator {
 		
 		// Create a list of item contents with the right amount of items
 		List<ItemStack> newContents = new ArrayList<ItemStack>();
-		for (int i = 0; i < itemCountInChest; i++)
+	if(items.size() > 0)
+	{
+		for (int k = 0; k < itemCountInChest; k++)
+		{
 			newContents.add(items.get(random.nextInt(items.size())));
+		}
+	}
+	else
+	{
+		String [] defaultChestItem = DMConfigHandler.defaultItem.split(" ");
+		newContents.add(ItemUtils.parseItem(defaultChestItem));
+	}
 		return newContents;
 	}
 	

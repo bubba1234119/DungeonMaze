@@ -15,10 +15,12 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
 import com.timvisee.dungeonmaze.DungeonMaze;
+import com.timvisee.dungeonmaze.config.DMConfigHandler;
 import com.timvisee.dungeonmaze.event.generation.DMGenerationSpawnerCause;
 import com.timvisee.dungeonmaze.event.generation.DMGenerationSpawnerEvent;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeLayerBlockPopulator;
 import com.timvisee.dungeonmaze.populator.maze.DMMazeLayerBlockPopulatorArgs;
+import com.timvisee.dungeonmaze.util.ItemUtils;
 
 public class BossRoomInsanePopulator extends DMMazeLayerBlockPopulator {
 	public static final int MIN_LAYER = 1;
@@ -147,7 +149,7 @@ public class BossRoomInsanePopulator extends DMMazeLayerBlockPopulator {
 		     c.getBlock(x + 8, y + 4, z + 8).setType(Material.NETHER_BRICK);
 		     
 		     // Core spawners
-		     if (DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Ghast")) {
+		     if (DMConfigHandler.mobs.contains("Ghast")) {
 		    	Block spawnerBlock = c.getBlock(x + 7, y + 2, z + 7);
 					
 				// Call the spawner generation event
@@ -167,7 +169,7 @@ public class BossRoomInsanePopulator extends DMMazeLayerBlockPopulator {
 				}
 		     }
 		     
-		     if (DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Zombie")) {
+		     if (DMConfigHandler.mobs.contains("Zombie")) {
 		    	Block spawnerBlock = c.getBlock(x + 7, y + 2, z + 8);
 					
 				// Call the spawner generation event
@@ -187,7 +189,7 @@ public class BossRoomInsanePopulator extends DMMazeLayerBlockPopulator {
 				}
 		     }
 		     
-		     if (DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("PigZombie")) {
+		     if (DMConfigHandler.mobs.contains("PigZombie")) {
 		    	Block spawnerBlock = c.getBlock(x + 8, y + 2, z + 7);
 					
 				// Call the spawner generation event
@@ -207,7 +209,7 @@ public class BossRoomInsanePopulator extends DMMazeLayerBlockPopulator {
 				}
 		     }
 		     
-		     if (DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("PigZombie")) {
+		     if (DMConfigHandler.mobs.contains("PigZombie")) {
 		    	Block spawnerBlock = c.getBlock(x + 8, y + 2, z + 8);
 					
 				// Call the spawner generation event
@@ -227,7 +229,7 @@ public class BossRoomInsanePopulator extends DMMazeLayerBlockPopulator {
 				}
 		     }
 		     
-		     if (DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Skeleton")) {
+		     if (DMConfigHandler.mobs.contains("Skeleton")) {
 		    	Block spawnerBlock = c.getBlock(x + 7, y + 3, z + 7);
 					
 				// Call the spawner generation event
@@ -247,7 +249,7 @@ public class BossRoomInsanePopulator extends DMMazeLayerBlockPopulator {
 				}
 		     }
 		     
-		     if (DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Zombie")) {
+		     if (DMConfigHandler.mobs.contains("Zombie")) {
 		    	Block spawnerBlock = c.getBlock(x + 7, y + 3, z + 8);
 					
 				// Call the spawner generation event
@@ -267,7 +269,7 @@ public class BossRoomInsanePopulator extends DMMazeLayerBlockPopulator {
 				}
 		     }
 		     
-		     if (DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("PigZombie")) {
+		     if (DMConfigHandler.mobs.contains("PigZombie")) {
 		    	Block spawnerBlock = c.getBlock(x + 8, y + 3, z + 7);
 				
 				// Call the spawner generation event
@@ -287,7 +289,7 @@ public class BossRoomInsanePopulator extends DMMazeLayerBlockPopulator {
 				}
 		     }
 		     
-		     if (DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Zombie")) {
+		     if (DMConfigHandler.mobs.contains("Zombie")) {
 		    	Block spawnerBlock = c.getBlock(x + 8, y + 3, z + 8);
 					
 				// Call the spawner generation event
@@ -308,7 +310,7 @@ public class BossRoomInsanePopulator extends DMMazeLayerBlockPopulator {
 		     }
 		     
 		     //loose spawners
-		     if (DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Zombie")) {
+		     if (DMConfigHandler.mobs.contains("Zombie")) {
 		    	Block spawnerBlock = c.getBlock(x + 3, y + 1, z + 3);
 					
 				// Call the spawner generation event
@@ -328,7 +330,7 @@ public class BossRoomInsanePopulator extends DMMazeLayerBlockPopulator {
 				}
 		     }
 		     
-		     if (DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Skeleton")) {
+		     if (DMConfigHandler.mobs.contains("Skeleton")) {
 		    	Block spawnerBlock = c.getBlock(x + 3, y + 1, z + 12);
 					
 				// Call the spawner generation event
@@ -348,7 +350,7 @@ public class BossRoomInsanePopulator extends DMMazeLayerBlockPopulator {
 				}
 		     }
 		     
-		     if (DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Zombie")) {
+		     if (DMConfigHandler.mobs.contains("Zombie")) {
 		    	Block spawnerBlock =  c.getBlock(x + 12, y + 1, z + 3);
 					
 				// Call the spawner generation event
@@ -368,7 +370,7 @@ public class BossRoomInsanePopulator extends DMMazeLayerBlockPopulator {
 				}
 		     }
 		     
-		     if (DungeonMaze.instance.getConfigHandler().isMobSpawnerAllowed("Spider")) {
+		     if (DMConfigHandler.mobs.contains("Spider")) {
 		    	Block spawnerBlock = c.getBlock(x + 12, y + 1, z + 12);
 					
 				// Call the spawner generation event
@@ -417,74 +419,26 @@ public class BossRoomInsanePopulator extends DMMazeLayerBlockPopulator {
 	
 	public void addItemsToChest(Random random, Chest chest) {
 		List<ItemStack> items = new ArrayList<ItemStack>();
-		if(random.nextInt(100) < 80) {
-			items.add(new ItemStack(50, 16, (short) 0));
+		for(int h = 0; h < DMConfigHandler.itemsRare.size(); h++)
+		{
+			int next = random.nextInt(100);
+			random.setSeed(System.currentTimeMillis() + System.currentTimeMillis() + next + 100);
+			if(random.nextInt(100) < 45)
+			{
+				String [] rare = DMConfigHandler.itemsRare.get(h).split(" ");
+				items.add(ItemUtils.parseItem(rare));
+			}
 		}
-		if(random.nextInt(100) < 40) {
-			items.add(new ItemStack(50, 20, (short) 0));
-		}
-		if(random.nextInt(100) < 80) {
-			items.add(new ItemStack(262, 24, (short) 0));
-		}
-		if(random.nextInt(100) < 40) {
-			items.add(new ItemStack(262, 1, (short) 0));
-		}
-		if(random.nextInt(100) < 20) {
-			items.add(new ItemStack(264, 3, (short) 0));
-		}
-		if(random.nextInt(100) < 50) {
-			items.add(new ItemStack(265, 3, (short) 0));
-		}
-		if(random.nextInt(100) < 50) {
-			items.add(new ItemStack(266, 3, (short) 0));
-		}
-		if(random.nextInt(100) < 50) {
-			items.add(new ItemStack(267, 1, (short) 0));
-		}
-		if(random.nextInt(100) < 80) {
-			items.add(new ItemStack(282, 1, (short) 0));
-		}
-		if(random.nextInt(100) < 20) {
-			items.add(new ItemStack(306, 1, (short) 0));
-		}
-		if(random.nextInt(100) < 20) {
-			items.add(new ItemStack(307, 1, (short) 0));
-		}
-		if(random.nextInt(100) < 20) {
-			items.add(new ItemStack(308, 1, (short) 0));
-		}
-		if(random.nextInt(100) < 20) {
-			items.add(new ItemStack(309, 1, (short) 0));
-		}
-		if(random.nextInt(100) < 5) {
-			items.add(new ItemStack(310, 1, (short) 0));
-		}
-		if(random.nextInt(100) < 5) {
-			items.add(new ItemStack(311, 1, (short) 0));
-		}
-		if(random.nextInt(100) < 5) {
-			items.add(new ItemStack(312, 1, (short) 0));
-		}
-		if(random.nextInt(100) < 5) {
-			items.add(new ItemStack(313, 1, (short) 0));
-		}
-		if(random.nextInt(100) < 40) {
-			items.add(new ItemStack(318, 1, (short) 0));
-		}
-		if(random.nextInt(100) < 80) {
-			items.add(new ItemStack(320, 1, (short) 0));
-		}
-		if(random.nextInt(100) < 10) {
-			items.add(new ItemStack(322, 1, (short) 0));
-		}
-		if(random.nextInt(100) < 20) {
-			items.add(new ItemStack(331, 7, (short) 0));
-		}
-		if(random.nextInt(100) < 20) {
-			items.add(new ItemStack(354, 1, (short) 0));
-		}
-		if(random.nextInt(100) < 80) {
-			items.add(new ItemStack(357, 8, (short) 0));
+		
+		for(int a = 0; a < DMConfigHandler.itemsEpic.size(); a++)
+		{
+			int next = random.nextInt(30);
+			random.setSeed(System.currentTimeMillis() + System.nanoTime() + System.currentTimeMillis() + next);
+			if(random.nextInt(100) < 25)
+			{
+				String [] epic = DMConfigHandler.itemsEpic.get(a).split(" ");
+				items.add(ItemUtils.parseItem(epic));
+			}
 		}
 		
 		int itemCountInChest = 4;
@@ -519,9 +473,17 @@ public class BossRoomInsanePopulator extends DMMazeLayerBlockPopulator {
 		}
 		
 		// Add the selected items to a random place inside the chest
+		if(items.size() > 0)
+		{
 		for (int i = 0; i < itemCountInChest; i++) {
 			chest.getInventory().setItem(random.nextInt(chest.getInventory().getSize()), items.get(random.nextInt(items.size())));
 		}
+	}
+		else
+			{
+				String [] defaultChestItem = DMConfigHandler.defaultItem.split(" ");
+				chest.getInventory().addItem(ItemUtils.parseItem(defaultChestItem));
+			}
 		chest.update();
 	}
 }
