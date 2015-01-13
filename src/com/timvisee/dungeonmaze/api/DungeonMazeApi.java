@@ -172,14 +172,9 @@ public class DungeonMazeApi {
 	 * @param p the player
 	 * @return true if the player is allowed to build
 	 */
-	public boolean canBuildInDMWorld(String w, Player p) {
-		// Make sure the plugin is hooked into Dungeon Maze
-		if(!isHooked())
-			return false;
-		
-		if(getDM().getWorldManager().isDMWorld(w))
-			if(DMConfigHandler.worldProtection)
-				return p.hasPermission("dungeonmaze.bypass.build");
+	@Deprecated
+	public boolean canBuildInDMWorld(String w, Player p) 
+	{
 		return true;
 	}
 	

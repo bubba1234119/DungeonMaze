@@ -35,7 +35,11 @@ public class NetherrackPopulator extends DMMazeRoomBlockPopulator {
 					if(rand.nextInt(100) < BURNING_NETHERRACK) {
 						Block burnBlock = c.getBlock(b.getX(), b.getY() + 1, b.getZ());
 						if (burnBlock.getType() == Material.AIR)
+						{
 							burnBlock.setType(Material.FIRE);
+							burnBlock.setType(Material.AIR);
+							burnBlock.setType(Material.FIRE);
+						}
 					}
 				}
 			}

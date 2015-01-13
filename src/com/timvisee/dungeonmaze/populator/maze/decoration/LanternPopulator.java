@@ -37,7 +37,29 @@ public class LanternPopulator extends DMMazeRoomBlockPopulator {
 				
 				Block b = c.getBlock(lanternX, lanternY, lanternZ);
 				if(b.getType() == Material.COBBLESTONE || b.getType() == Material.MOSSY_COBBLESTONE || b.getType() == Material.SMOOTH_BRICK)
+				{
 					b.setType(Material.GLOWSTONE);
+					if(c.getBlock(lanternX - 1, lanternY, lanternZ).getType() == Material.AIR)
+					{
+						c.getBlock(lanternX - 1, lanternY, lanternZ).setType(Material.COBBLESTONE);
+						c.getBlock(lanternX - 1, lanternY, lanternZ).setType(Material.AIR);
+					}
+					if(c.getBlock(lanternX + 1, lanternY, lanternZ).getType() == Material.AIR)
+					{
+						c.getBlock(lanternX + 1, lanternY, lanternZ).setType(Material.COBBLESTONE);
+						c.getBlock(lanternX + 1, lanternY, lanternZ).setType(Material.AIR);
+					}
+					if(c.getBlock(lanternX, lanternY, lanternZ + 1).getType() == Material.AIR)
+					{
+						c.getBlock(lanternX, lanternY, lanternZ + 1).setType(Material.COBBLESTONE);
+						c.getBlock(lanternX, lanternY, lanternZ +1).setType(Material.AIR);
+					}
+					if(c.getBlock(lanternX, lanternY, lanternZ - 1).getType() == Material.AIR)
+					{
+						c.getBlock(lanternX-1, lanternY, lanternZ - 1).setType(Material.COBBLESTONE);
+						c.getBlock(lanternX-1, lanternY, lanternZ - 1).setType(Material.AIR);
+					}
+				}
 			}
 		}
 		
@@ -46,14 +68,17 @@ public class LanternPopulator extends DMMazeRoomBlockPopulator {
 				int lanternX = x + rand.nextInt(8);
 				int lanternY = rand.nextInt(4 - floorOffset) + 2 + floorOffset;
 				int lanternZ = z + rand.nextInt(8);
-				
+
 				Block b = c.getBlock(lanternX, lanternY, lanternZ);
 				if(b.getType() == Material.COBBLESTONE || b.getType() == Material.MOSSY_COBBLESTONE || b.getType() == Material.SMOOTH_BRICK)
+				{
 					b.setType(Material.GLOWSTONE);
+
+				}
 			}
 		}
 	}
-	
+
 	/**
 	 * Get the minimum layer
 	 * @return Minimum layer

@@ -14,9 +14,7 @@ public class DMConfigHandler {
 	private static File configFile = new File(DungeonMaze.instance.getDataFolder().getPath(),"config.yml");
 	public static boolean unloadWorldsOnPluginDisable;
 	public static boolean allowSurface;
-	public static boolean worldProtection;
 	public static List<Object> blockWhiteList;
-	public static boolean enableUpdateCheckerOnStartup;
 	public static boolean usePermissions;
 	public static boolean useBypassPermissions;
 	public static List<String> mobs;
@@ -37,8 +35,6 @@ public class DMConfigHandler {
 		
 		// Load (and cache) the properties
 		DMConfigHandler.unloadWorldsOnPluginDisable = DungeonMaze.instance.getConfig().getBoolean("unloadWorldsOnPluginDisable", true);
-		DMConfigHandler.worldProtection = DungeonMaze.instance.getConfig().getBoolean("worldProtection", false);
-		DMConfigHandler.enableUpdateCheckerOnStartup = DungeonMaze.instance.getConfig().getBoolean("updateChecker.enabled", true);
 		DMConfigHandler.usePermissions = DungeonMaze.instance.getConfig().getBoolean("usePermissions", true);
 		DMConfigHandler.useBypassPermissions = DungeonMaze.instance.getConfig().getBoolean("useBypassPermissions", true);
 		DMConfigHandler.blockWhiteList = (List<Object>) DungeonMaze.instance.getConfig().getList("blockWhiteList");

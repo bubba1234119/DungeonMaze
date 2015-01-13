@@ -27,7 +27,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.timvisee.dungeonmaze.api.DMApiController;
 import com.timvisee.dungeonmaze.config.DMConfigHandler;
-import com.timvisee.dungeonmaze.listener.DMBlockListener;
 import com.timvisee.dungeonmaze.listener.DMPluginListener;
 import com.timvisee.dungeonmaze.listener.DMWorldListener;
 import com.timvisee.dungeonmaze.manager.DMWorldManager;
@@ -46,7 +45,6 @@ public class DungeonMaze extends JavaPlugin {
 	public static DungeonMaze instance;
 	
 	// Listener
-	private final DMBlockListener blockListener = new DMBlockListener();
 	private final DMPluginListener pluginListener = new DMPluginListener();
 	private final DMWorldListener worldListener = new DMWorldListener();
 	
@@ -90,7 +88,6 @@ public class DungeonMaze extends JavaPlugin {
 		
 		// Register all event listeners
 		PluginManager pm = getServer().getPluginManager();
-		pm.registerEvents(this.blockListener, this);
 		pm.registerEvents(this.pluginListener, this);
 		pm.registerEvents(this.worldListener, this);
 		
